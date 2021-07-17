@@ -1,0 +1,18 @@
+■Riverpodの使用方法
+
+  ■WidgetとProvider
+    // ConsumerWidgetで受けるケース
+    class MyApp extends ConsumerWidget {
+      @override
+      Widget build(BuildContext context, ScopedReader watch) {
+        final helloWorld = watch(helloWorldProvider);
+        ...
+
+    // Consumerで受けるケース
+    class MyApp extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Consumer(
+          builder: (context, watch, child) {
+            final helloWorld = watch(helloWorldProvider);
+            ...

@@ -1,0 +1,27 @@
+<freezed>
+
+  ■pubspec.yaml
+    dependencies:
+      # @freezed 等を使うために必須
+      freezed_annotation: ^0.14.2
+
+    dev_dependencies:
+      # コード生成に必要
+      build_runner: ^2.0.6
+      freezed: ^0.14.2
+
+      # fromJson/toJson を生成させたい場合は必要
+      json_serializable: ^4.1.3
+
+  ■コードスニペット
+    https://zuma-lab.com/posts/flutter-freezed-live-template
+
+  ■実装
+  
+
+  ■コード生成
+    flutter pub run build_runner build
+
+  ■監視実行させる
+    flutter pub run build_runner watch
+    flutter pub run build_runner watch --delete-conflicting-outputs
