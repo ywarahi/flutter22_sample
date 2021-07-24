@@ -74,22 +74,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class RootPage extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final pageProvider = watch(pageControlProvider);
-
-    return Scaffold(
-      body: pageProvider.getCurrentPage(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: pageProvider.tabItems,
-        currentIndex: pageProvider.currentIndex,
-        onTap: pageProvider.onTap,
-      ),
-    );
-  }
-}
-
 class CustomPage extends StatelessWidget {
   const CustomPage({required this.panelColor, required this.title});
 
