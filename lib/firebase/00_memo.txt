@@ -1,0 +1,22 @@
+■2021.7.25 GoogleService-Info.plist
+https://firebase.google.com/docs/flutter/setup?hl=ja&platform=ios
+　①firebaseプロジェクトからGoogleService-Info.plistを取得
+　②XCodeを使用してRunner／Runner配下にGoogleService-Info.plistを追加
+　③.gitignoreにGoogleService-Info.plistを追加
+
+■2021.7.25 firebase-package
+https://pub.dev/packages/firebase_core
+https://pub.dev/packages/cloud_firestore
+dependencies:
+  firebase_core: ^1.4.0
+  cloud_firestore: ^2.4.0
+
+■2021.7.25 build-error
+ >> [!] Automatically assigning platform `iOS` with version `9.0` on target `Runner` because no platform was specified.
+
+⇨https://qiita.com/yoshikoba/items/1cfcda5b9f33555a113a
+update /iOS/Runner/Podfile
+#platform :ios, '9.0'   →   platform :ios, '12.0'
+
+⇨必要に応じて
+　terminal> pod repo update

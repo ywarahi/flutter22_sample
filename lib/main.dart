@@ -14,17 +14,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a08_riverpod_provider_listner.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
-import 'widget/a01_bottom_navigation_bar.dart';
-
-void main() {
-  runApp(
-    ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
+//import 'widget/a01_bottom_navigation_bar.dart';
+// void main() {
+//   runApp(
+//     ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
 // import 'riverpod/a11_riverpod_provider_scope_overrides.dart';
 // void main() {
 //   sub();
 // }
+
+import 'firebase/a01_firebase.dart';
+void main() {
+  sub();
+}
