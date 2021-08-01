@@ -1,0 +1,5 @@
+https://pub.dev/packages/package_info
+
+dependencies:
+  package_info: ^2.0.2
+

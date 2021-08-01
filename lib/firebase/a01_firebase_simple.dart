@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.indigo,
           onPressed: () {},
           child: IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             color: Colors.white,
             onPressed: () async {
               final result = await FirebaseFirestore.instance

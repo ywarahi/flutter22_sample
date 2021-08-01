@@ -33,6 +33,7 @@ dependencies:
   freezed_annotation: ^0.14.2
   firebase_core: ^1.4.0
   cloud_firestore: ^2.4.0
+  package_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:
