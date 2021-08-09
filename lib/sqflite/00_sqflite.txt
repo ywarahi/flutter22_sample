@@ -1,0 +1,22 @@
+https://pub.dev/packages/sqflite
+
+dependencies:
+  sqflite: ^2.0.0+3
+
+
+
+■ERROR
+[VERBOSE-2:ui_dart_state.cc(199)] Unhandled Exception: Null check operator used on a null value
+#0      MethodChannel.binaryMessenger (package:flutter/src/services/platform_channel.dart:142:86)
+#1      MethodChannel._invokeMethod (package:flutter/src/services/platform_channel.dart:148:36)
+#2      MethodChannel.invokeMethod (package:flutter/src/services/platform_channel.dart:331:12)
+#3      invokeMethod (package:sqflite/src/sqflite_impl.dart:17:13)
+#4      SqfliteDatabaseFactoryImpl.invokeMethod (package:sqflite/src/factory_impl.dart:82:7)
+#5      SqfliteDatabaseFactoryMixin.safeInvokeMethod.<anonymous closure> (package:sqflite_common/src/factory_mixin.dart:41:38)
+#6      wrapDatabaseException (package:sqflite/src/exception_impl.dart:7:32)
+#7      SqfliteDatabaseFactoryImpl.wrapDatabaseException (package:sqflite/src/factory_impl.dart:78:7)
+#8      SqfliteDatabaseFactoryMixin.safeInvokeMethod (package:sqflite_common/src/factory_mixin.dart:41:7)
+#9      SqfliteDatabaseFactoryMixin.getDatabasesPath (pack<…>
+
+→https://stackoverflow.com/questions/68247450/null-check-operator-used-on-a-null-value-on-flutter-with-sqflite
+    WidgetsFlutterBinding.ensureInitialized();
