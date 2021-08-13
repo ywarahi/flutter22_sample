@@ -1,0 +1,4 @@
+https://pub.dev/packages/webview_flutter
+
+dependencies:
+  webview_flutter: ^2.0.10
