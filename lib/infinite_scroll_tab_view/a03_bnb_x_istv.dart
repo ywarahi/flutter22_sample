@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_tab_view/infinite_scroll_tab_view.dart';
 
 final bottomTabPages = <Widget>[
-  const CustomPage(panelColor: Colors.cyan, title: 'Home'),
-  const CustomPage(panelColor: Colors.green, title: 'Settings'),
-  const CustomPage(panelColor: Colors.pink, title: 'Search')
+  MyTabsView(), //const CustomPage(panelColor: Colors.cyan, title: 'Home1'),
+  const CustomPage(panelColor: Colors.green, title: 'Settings1'),
+  const CustomPage(panelColor: Colors.pink, title: 'Search1')
 ];
 
 final bottomTabItems = <BottomNavigationBarItem>[
   const BottomNavigationBarItem(
     icon: Icon(Icons.home),
-    label: 'Home',
+    label: 'Home1',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Icons.settings),
@@ -23,7 +24,7 @@ final bottomTabItems = <BottomNavigationBarItem>[
 ];
 
 final bottomTabsControlProvider = ChangeNotifierProvider(
-    (ref) => BottomTabsControl(bottomTabItems, bottomTabPages));
+        (ref) => BottomTabsControl(bottomTabItems, bottomTabPages));
 
 class BottomTabsControl extends ChangeNotifier {
   BottomTabsControl(this.tabItems, this.tabPages);
@@ -33,7 +34,10 @@ class BottomTabsControl extends ChangeNotifier {
   List<Widget> tabPages;
 
   Widget getCurrentPage() {
-    return tabPages[currentIndex];
+    return IndexedStack(
+      index: currentIndex,
+      children: tabPages,
+    );
   }
 
   void onTap(int index) {
@@ -49,7 +53,7 @@ class BottomTabsControl extends ChangeNotifier {
   }
 }
 
-void main() => runApp(MyApp());
+//void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
@@ -63,6 +67,7 @@ class MyApp extends StatelessWidget {
           final pageProvider = watch(bottomTabsControlProvider);
 
           return Scaffold(
+            appBar: AppBar(title: const Text('zzz')),
             body: pageProvider.getCurrentPage(),
             bottomNavigationBar: BottomNavigationBar(
               items: pageProvider.tabItems,
@@ -84,7 +89,10 @@ class CustomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleTextStyle = Theme.of(context).textTheme.title;
+    final titleTextStyle = Theme
+        .of(context)
+        .textTheme
+        .title;
     return Container(
       child: Center(
         child: Container(
@@ -105,5 +113,63 @@ class CustomPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+final topTabPages = <Widget>[
+  const CustomPage(panelColor: Colors.cyan, title: 'Home'),
+  const CustomPage(panelColor: Colors.green, title: 'Settings'),
+  const CustomPage(panelColor: Colors.pink, title: 'Search')
+];
+
+final topTabItems = <Text>[
+  const Text('Home'),
+  const Text('Setting'),
+  const Text('Search'),
+];
+
+final topTabsControlProvider =
+ChangeNotifierProvider((ref) => TopTabsControl(topTabItems, topTabPages));
+
+class TopTabsControl extends ChangeNotifier {
+  TopTabsControl(this.tabItems, this.tabPages);
+
+  int currentIndex = 0;
+  List<Text> tabItems;
+  List<Widget> tabPages;
+
+  Widget getCurrentPage() {
+    return IndexedStack(
+      index: currentIndex,
+      children: tabPages,
+    );
+  }
+
+  void onTap(int index) {
+    currentIndex = index;
+    notifyListeners();
+  }
+}
+
+class MyTabsView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+        builder: (context, watch, child) {
+          final pageProvider = watch(topTabsControlProvider);
+          return InfiniteScrollTabView(
+            contentLength: pageProvider.tabItems.length,
+            onTabTap: pageProvider.onTap,
+            tabBuilder: (index, isSelected) {
+              return pageProvider.tabItems[index];
+            },
+            separator: const BorderSide(color: Colors.black12, width: 2),
+            onPageChanged: (index) => debugPrint('page changed to $index.'),
+            indicatorColor: Colors.pink,
+            pageBuilder: (context, index, _) {
+              return pageProvider.tabPages[index];
+            },
+          );
+        });
   }
 }

@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 
+// Tab数が多すぎると視認性に問題あり、3〜5つが適切
 final tabPages = <Widget>[
   const CustomPage(panelColor: Colors.cyan, title: 'Home'),
   const CustomPage(panelColor: Colors.green, title: 'Settings'),
-  const CustomPage(panelColor: Colors.pink, title: 'Search')
+  const CustomPage(panelColor: Colors.pink, title: 'Search'),
+  // const CustomPage(panelColor: Colors.deepOrangeAccent, title: 'XXX'),
+  // const CustomPage(panelColor: Colors.cyanAccent , title: 'YYY'),
+  // const CustomPage(panelColor: Colors.deepPurpleAccent , title: 'ZZZ'),
+  // const CustomPage(panelColor: Colors.deepPurpleAccent , title: 'AAA'),
+  // const CustomPage(panelColor: Colors.deepPurpleAccent , title: 'BBB'),
+  // const CustomPage(panelColor: Colors.deepPurpleAccent , title: 'CCC'),
 ];
 
 final tabItems = <Tab>[
   const Tab(icon: Icon(Icons.cloud_outlined), text: 'cloud'),
   const Tab(icon: Icon(Icons.beach_access_sharp), text: 'beach'),
   const Tab(icon: Icon(Icons.brightness_5_sharp), text: 'sun'),
+  // const Tab(icon: Icon(Icons.access_alarm), text: 'xxx'),
+  // const Tab(icon: Icon(Icons.accessibility), text: 'yyy'),
+  // const Tab(icon: Icon(Icons.dangerous), text: 'zzz'),
+  // const Tab(icon: Icon(Icons.eco_outlined), text: 'aaa'),
+  // const Tab(icon: Icon(Icons.eco_outlined), text: 'bbb'),
+  // const Tab(icon: Icon(Icons.eco_outlined), text: 'ccc'),
 ];
 
 class MyApp extends StatelessWidget {

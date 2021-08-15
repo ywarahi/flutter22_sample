@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_tab_view/infinite_scroll_tab_view.dart';
 
-final bottomTabPages = <Widget>[
+final topTabPages = <Widget>[
   const CustomPage(panelColor: Colors.cyan, title: 'Home'),
   const CustomPage(panelColor: Colors.green, title: 'Settings'),
   const CustomPage(panelColor: Colors.pink, title: 'Search')
 ];
 
-final bottomTabItems = <BottomNavigationBarItem>[
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.home),
-    label: 'Home',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.settings),
-    label: 'Setting',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.search),
-    label: 'Search',
-  ),
+final topTabItems = <Text>[
+  const Text('Home'),
+  const Text('Setting'),
+  const Text('Search'),
 ];
 
-final bottomTabsControlProvider = ChangeNotifierProvider(
-    (ref) => BottomTabsControl(bottomTabItems, bottomTabPages));
+final topTabsControlProvider =
+    ChangeNotifierProvider((ref) => TopTabsControl(topTabItems, topTabPages));
 
-class BottomTabsControl extends ChangeNotifier {
-  BottomTabsControl(this.tabItems, this.tabPages);
+class TopTabsControl extends ChangeNotifier {
+  TopTabsControl(this.tabItems, this.tabPages);
 
   int currentIndex = 0;
-  List<BottomNavigationBarItem> tabItems;
+  List<Text> tabItems;
   List<Widget> tabPages;
 
   Widget getCurrentPage() {
@@ -40,34 +32,33 @@ class BottomTabsControl extends ChangeNotifier {
     currentIndex = index;
     notifyListeners();
   }
-
-  void addPage(Icon icon, String label, Widget page) {
-    tabItems.add(const BottomNavigationBarItem(
-        icon: Icon(Icons.search), label: 'Search'));
-    tabPages.add(page);
-    notifyListeners();
-  }
 }
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
+      title: 'Flutter Code Sample',
       home: Consumer(
         builder: (context, watch, child) {
-          final pageProvider = watch(bottomTabsControlProvider);
+          final pageProvider = watch(topTabsControlProvider);
 
           return Scaffold(
-            body: pageProvider.getCurrentPage(),
-            bottomNavigationBar: BottomNavigationBar(
-              items: pageProvider.tabItems,
-              currentIndex: pageProvider.currentIndex,
-              onTap: pageProvider.onTap,
+            appBar: AppBar(title: const Text('infinite_')),
+            body: InfiniteScrollTabView(
+              contentLength: pageProvider.tabItems.length,
+              onTabTap: pageProvider.onTap,
+              tabBuilder: (index, isSelected) {
+                return pageProvider.tabItems[index];
+              },
+              separator: const BorderSide(color: Colors.black12, width: 2),
+              onPageChanged: (index) => debugPrint('page changed to $index.'),
+              indicatorColor: Colors.pink,
+              pageBuilder: (context, index, _) {
+                return pageProvider.tabPages[index];
+              },
             ),
           );
         },
@@ -92,7 +83,7 @@ class CustomPage extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
               color: panelColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20.0))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
           child: Center(
             child: Text(
               title,
