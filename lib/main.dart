@@ -13,7 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a08_riverpod_provider_listner.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
-import 'riverpod/a12_riverpod_async_value.dart';
+//import 'riverpod/a12_riverpod_async_value.dart';
 //import 'widget/a02_bottom_navigation_bar.dart';
 //import 'packageinfo/a01_packageinfo_simple.dart';
 //import 'packageinfo/a02_packageinfo_riverpod.dart';
@@ -25,6 +25,7 @@ import 'riverpod/a12_riverpod_async_value.dart';
 //import 'infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
 //import 'infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'infinite_scroll_tab_view/a03_istv_x_bnb.dart';
+import 'app_todo/todo_app.dart';
 
 void main() {
   runApp(
