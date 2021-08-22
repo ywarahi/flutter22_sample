@@ -5,18 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-// import 'dart:convert' as convert;
-// import 'package:http/http.dart' as http;
-//
-// final httpGetProvider = FutureProvider<Map<String, dynamic?>>((ref) async {
-//   const keyword = 'billiards';
-//   Uri uri = Uri.parse('https://www.googleapis.com/books/v1/volumes?q=$keyword');
-//   final response = await http.get(uri);
-//
-//   var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic?>;
-//   return jsonResponse;
-// });
-
 // 非同期で一回だけ実行される
 final diceReadProvider = FutureProvider<int>((ref) async {
   await Future<void>.delayed(const Duration(seconds: 1));
