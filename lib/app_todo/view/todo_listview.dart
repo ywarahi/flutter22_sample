@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-import 'model/todo_model.dart';
-import 'todo_provider.dart';
+import '../model/todo_model.dart';
+import '../todo_provider.dart';
 
 final currentIndexItem =
     ScopedProvider<TodoModel>((watch) => throw UnimplementedError());
