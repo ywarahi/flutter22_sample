@@ -11,6 +11,14 @@ Future<void> sub() async {
 }
 
 class MyApp extends StatelessWidget {
+  Future<QuerySnapshot<Map<String, dynamic>>> _getToDo() {
+    return FirebaseFirestore.instance
+        .collection('todo')
+        .orderBy('createdAt', descending: true)
+        .limit(1)
+        .get();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,23 +27,22 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Firebase Sample'),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.indigo,
-          onPressed: () {},
-          child: IconButton(
-            icon: const Icon(Icons.add),
-            color: Colors.white,
-            onPressed: () async {
-              final result = await FirebaseFirestore.instance
-                  .collection('feed_20200924')
-                  .orderBy('feed_updateDate', descending: true)
-                  .limit(1)
-                  .get();
-              for (final doc in result.docs) {
-                print(doc.data().toString());
-              }
-            },
-          ),
+        body: FutureBuilder(
+          future: _getToDo(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.hasData) {
+              final result = snapshot.data?.docs.first.data();
+              final title = result?['title'] as String;
+              return Center(
+                child: Text(title),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ),
     );
