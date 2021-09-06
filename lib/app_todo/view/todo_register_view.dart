@@ -6,7 +6,7 @@ import '../model/todo_model.dart';
 import '../todo_provider.dart';
 
 final todoModelProvider = StateProvider<TodoModel>(
-    (ref) => const TodoModel(id: '0', description: ''));
+    (ref) => const TodoModel(id: null, description: ''));
 
 class TodoRegisterView extends ConsumerWidget {
   @override
@@ -34,7 +34,7 @@ class TodoRegisterView extends ConsumerWidget {
               width: double.infinity, // 横幅いっぱい
               child: ElevatedButton(
                 onPressed: () {
-                  notifier.add(toDoModel.state);
+                  notifier.add(toDoModel.state.title);
                   Navigator.of(context).pop(); // 前の画面に戻る
                 },
                 child:

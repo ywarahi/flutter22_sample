@@ -21,12 +21,12 @@ class _$TodoModelTearOff {
   const _$TodoModelTearOff();
 
   _TodoModel call(
-      {required String id,
+      {String? id,
       String title = 'NO TITLE',
       String? description,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      DateTime? finishedAt}) {
+      @timestampKey DateTime? createdAt,
+      @timestampKey DateTime? updatedAt,
+      @timestampKey DateTime? finishedAt}) {
     return _TodoModel(
       id: id,
       title: title,
@@ -47,11 +47,14 @@ const $TodoModel = _$TodoModelTearOff();
 
 /// @nodoc
 mixin _$TodoModel {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  @timestampKey
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @timestampKey
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @timestampKey
   DateTime? get finishedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -65,12 +68,12 @@ abstract class $TodoModelCopyWith<$Res> {
   factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) then) =
       _$TodoModelCopyWithImpl<$Res>;
   $Res call(
-      {String id,
+      {String? id,
       String title,
       String? description,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      DateTime? finishedAt});
+      @timestampKey DateTime? createdAt,
+      @timestampKey DateTime? updatedAt,
+      @timestampKey DateTime? finishedAt});
 }
 
 /// @nodoc
@@ -94,7 +97,7 @@ class _$TodoModelCopyWithImpl<$Res> implements $TodoModelCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -126,12 +129,12 @@ abstract class _$TodoModelCopyWith<$Res> implements $TodoModelCopyWith<$Res> {
       __$TodoModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
+      {String? id,
       String title,
       String? description,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      DateTime? finishedAt});
+      @timestampKey DateTime? createdAt,
+      @timestampKey DateTime? updatedAt,
+      @timestampKey DateTime? finishedAt});
 }
 
 /// @nodoc
@@ -156,7 +159,7 @@ class __$TodoModelCopyWithImpl<$Res> extends _$TodoModelCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -183,30 +186,34 @@ class __$TodoModelCopyWithImpl<$Res> extends _$TodoModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TodoModel with DiagnosticableTreeMixin implements _TodoModel {
+class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
   const _$_TodoModel(
-      {required this.id,
+      {this.id,
       this.title = 'NO TITLE',
       this.description,
-      this.createdAt,
-      this.updatedAt,
-      this.finishedAt});
+      @timestampKey this.createdAt,
+      @timestampKey this.updatedAt,
+      @timestampKey this.finishedAt})
+      : super._();
 
   factory _$_TodoModel.fromJson(Map<String, dynamic> json) =>
       _$_$_TodoModelFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @JsonKey(defaultValue: 'NO TITLE')
   @override
   final String title;
   @override
   final String? description;
   @override
+  @timestampKey
   final DateTime? createdAt;
   @override
+  @timestampKey
   final DateTime? updatedAt;
   @override
+  @timestampKey
   final DateTime? finishedAt;
 
   @override
@@ -270,29 +277,33 @@ class _$_TodoModel with DiagnosticableTreeMixin implements _TodoModel {
   }
 }
 
-abstract class _TodoModel implements TodoModel {
+abstract class _TodoModel extends TodoModel {
   const factory _TodoModel(
-      {required String id,
+      {String? id,
       String title,
       String? description,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      DateTime? finishedAt}) = _$_TodoModel;
+      @timestampKey DateTime? createdAt,
+      @timestampKey DateTime? updatedAt,
+      @timestampKey DateTime? finishedAt}) = _$_TodoModel;
+  const _TodoModel._() : super._();
 
   factory _TodoModel.fromJson(Map<String, dynamic> json) =
       _$_TodoModel.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
+  @timestampKey
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
+  @timestampKey
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
+  @timestampKey
   DateTime? get finishedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
