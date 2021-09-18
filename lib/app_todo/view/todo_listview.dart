@@ -13,8 +13,9 @@ class TodoListView extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
     final todoListAV = watch(todoListNotifierProvider);
+    final tagList = watch(todoListNotifierProvider.notifier).getTagList();
 
-    // build-widget
+    // build-flutter_widget
     return Scaffold(
       appBar: AppBar(
         title: const Text('ToDo ListView'),

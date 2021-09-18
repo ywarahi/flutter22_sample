@@ -15,7 +15,7 @@ class TodoRegisterView extends ConsumerWidget {
     final notifier = context.read(todoListNotifierProvider.notifier);
     final toDoModel = watch(todoModelProvider);
 
-    // build-widget
+    // build-flutter_widget
     return Scaffold(
       appBar: AppBar(
         title: const Text('ToDo 登録'),
