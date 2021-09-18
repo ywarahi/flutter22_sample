@@ -12,7 +12,7 @@ void sub() {
   // List<dynamic>　→　List<int>
   List<int> iList1 =
       dList1.cast<String>().map((e) => int.parse(e)).toList(); //OK
-  /// dList1.cast<int>(); //NG: exception
+  /// dList1.dart_cast<int>(); //NG: exception
   /// dList1.map((dynamic e) => int.parse(e as String)).toList(); //OK
   print(iList1.runtimeType);
   print(iList1.toString());
