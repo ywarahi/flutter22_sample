@@ -14,25 +14,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
 //import 'riverpod/a12_riverpod_async_value.dart';
-//import 'widget/a02_bottom_navigation_bar.dart';
+//import 'flutter_widget/a02_bottom_navigation_bar.dart';
 //import 'packageinfo/a01_packageinfo_simple.dart';
 //import 'packageinfo/a02_packageinfo_riverpod.dart';
 //import 'sqflite/a01_riverpod_sqflite.dart';
-//import 'widget/a01_material_app.dart';
+//import 'flutter_widget/a01_material_app.dart';
 //import 'webview/a01_webview_simple.dart';
-//import 'widget/a03_tabbar.dart';
-//import 'widget/a04_tabbar_bottombar.dart';
+import 'flutter_widget/a03_tabbar.dart';
+//import 'flutter_widget/a04_tabbar_bottombar.dart';
 //import 'infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
 //import 'infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 
-// void main() {
-//   runApp(
-//     ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
 
 //import 'riverpod/a11_riverpod_provider_scope_overrides.dart';
@@ -41,10 +41,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'shared_preference/a01_riverpod_shared_preference.dart';
 //import 'dart_nullable/a00_nullable.dart';
 //import 'sqflite/a00_sqflite.dart';
-//import 'dart_cast/a02_list.dart';
-import 'dart/a10_control_flow.dart';
+//import 'dart_cast/a02_cast_list.dart';
+//import 'dart/a10_control_flow.dart';
 //import 'app_todo/todo_app.dart';
 
-void main() {
-  sub();
-}
+// void main() {
+//   sub();
+// }

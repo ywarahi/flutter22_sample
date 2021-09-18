@@ -92,7 +92,7 @@ class CustomPage extends StatelessWidget {
     final titleTextStyle = Theme
         .of(context)
         .textTheme
-        .title;
+        .headline6;
     return Container(
       child: Center(
         child: Container(
