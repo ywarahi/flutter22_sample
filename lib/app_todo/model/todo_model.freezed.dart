@@ -22,15 +22,17 @@ class _$TodoModelTearOff {
 
   _TodoModel call(
       {String? id,
-      String title = 'NO TITLE',
+      String? title,
       String? description,
-      @timestampKey DateTime? createdAt,
-      @timestampKey DateTime? updatedAt,
-      @timestampKey DateTime? finishedAt}) {
+      @TagsConverter() List<String>? tags,
+      @DateTimeConverter() DateTime? createdAt,
+      @DateTimeConverter() DateTime? updatedAt,
+      @DateTimeConverter() DateTime? finishedAt}) {
     return _TodoModel(
       id: id,
       title: title,
       description: description,
+      tags: tags,
       createdAt: createdAt,
       updatedAt: updatedAt,
       finishedAt: finishedAt,
@@ -48,13 +50,15 @@ const $TodoModel = _$TodoModelTearOff();
 /// @nodoc
 mixin _$TodoModel {
   String? get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  @timestampKey
+  @TagsConverter()
+  List<String>? get tags => throw _privateConstructorUsedError;
+  @DateTimeConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  @timestampKey
+  @DateTimeConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  @timestampKey
+  @DateTimeConverter()
   DateTime? get finishedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,11 +73,12 @@ abstract class $TodoModelCopyWith<$Res> {
       _$TodoModelCopyWithImpl<$Res>;
   $Res call(
       {String? id,
-      String title,
+      String? title,
       String? description,
-      @timestampKey DateTime? createdAt,
-      @timestampKey DateTime? updatedAt,
-      @timestampKey DateTime? finishedAt});
+      @TagsConverter() List<String>? tags,
+      @DateTimeConverter() DateTime? createdAt,
+      @DateTimeConverter() DateTime? updatedAt,
+      @DateTimeConverter() DateTime? finishedAt});
 }
 
 /// @nodoc
@@ -89,6 +94,7 @@ class _$TodoModelCopyWithImpl<$Res> implements $TodoModelCopyWith<$Res> {
     Object? id = freezed,
     Object? title = freezed,
     Object? description = freezed,
+    Object? tags = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? finishedAt = freezed,
@@ -101,11 +107,15 @@ class _$TodoModelCopyWithImpl<$Res> implements $TodoModelCopyWith<$Res> {
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -130,11 +140,12 @@ abstract class _$TodoModelCopyWith<$Res> implements $TodoModelCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
-      String title,
+      String? title,
       String? description,
-      @timestampKey DateTime? createdAt,
-      @timestampKey DateTime? updatedAt,
-      @timestampKey DateTime? finishedAt});
+      @TagsConverter() List<String>? tags,
+      @DateTimeConverter() DateTime? createdAt,
+      @DateTimeConverter() DateTime? updatedAt,
+      @DateTimeConverter() DateTime? finishedAt});
 }
 
 /// @nodoc
@@ -151,6 +162,7 @@ class __$TodoModelCopyWithImpl<$Res> extends _$TodoModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? description = freezed,
+    Object? tags = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? finishedAt = freezed,
@@ -163,11 +175,15 @@ class __$TodoModelCopyWithImpl<$Res> extends _$TodoModelCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -189,11 +205,12 @@ class __$TodoModelCopyWithImpl<$Res> extends _$TodoModelCopyWithImpl<$Res>
 class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
   const _$_TodoModel(
       {this.id,
-      this.title = 'NO TITLE',
+      this.title,
       this.description,
-      @timestampKey this.createdAt,
-      @timestampKey this.updatedAt,
-      @timestampKey this.finishedAt})
+      @TagsConverter() this.tags,
+      @DateTimeConverter() this.createdAt,
+      @DateTimeConverter() this.updatedAt,
+      @DateTimeConverter() this.finishedAt})
       : super._();
 
   factory _$_TodoModel.fromJson(Map<String, dynamic> json) =>
@@ -201,24 +218,26 @@ class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
 
   @override
   final String? id;
-  @JsonKey(defaultValue: 'NO TITLE')
   @override
-  final String title;
+  final String? title;
   @override
   final String? description;
   @override
-  @timestampKey
+  @TagsConverter()
+  final List<String>? tags;
+  @override
+  @DateTimeConverter()
   final DateTime? createdAt;
   @override
-  @timestampKey
+  @DateTimeConverter()
   final DateTime? updatedAt;
   @override
-  @timestampKey
+  @DateTimeConverter()
   final DateTime? finishedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TodoModel(id: $id, title: $title, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, finishedAt: $finishedAt)';
+    return 'TodoModel(id: $id, title: $title, description: $description, tags: $tags, createdAt: $createdAt, updatedAt: $updatedAt, finishedAt: $finishedAt)';
   }
 
   @override
@@ -229,6 +248,7 @@ class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('tags', tags))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
       ..add(DiagnosticsProperty('finishedAt', finishedAt));
@@ -245,6 +265,8 @@ class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
+            (identical(other.tags, tags) ||
+                const DeepCollectionEquality().equals(other.tags, tags)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -262,6 +284,7 @@ class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(finishedAt);
@@ -280,11 +303,12 @@ class _$_TodoModel extends _TodoModel with DiagnosticableTreeMixin {
 abstract class _TodoModel extends TodoModel {
   const factory _TodoModel(
       {String? id,
-      String title,
+      String? title,
       String? description,
-      @timestampKey DateTime? createdAt,
-      @timestampKey DateTime? updatedAt,
-      @timestampKey DateTime? finishedAt}) = _$_TodoModel;
+      @TagsConverter() List<String>? tags,
+      @DateTimeConverter() DateTime? createdAt,
+      @DateTimeConverter() DateTime? updatedAt,
+      @DateTimeConverter() DateTime? finishedAt}) = _$_TodoModel;
   const _TodoModel._() : super._();
 
   factory _TodoModel.fromJson(Map<String, dynamic> json) =
@@ -293,17 +317,20 @@ abstract class _TodoModel extends TodoModel {
   @override
   String? get id => throw _privateConstructorUsedError;
   @override
-  String get title => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
-  @timestampKey
+  @TagsConverter()
+  List<String>? get tags => throw _privateConstructorUsedError;
+  @override
+  @DateTimeConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
-  @timestampKey
+  @DateTimeConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
-  @timestampKey
+  @DateTimeConverter()
   DateTime? get finishedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

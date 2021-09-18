@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../model/todo_model.dart';
-import '../todo_provider.dart';
+import '../todo_list_notifier.dart';
 
 final todoModelProvider = StateProvider<TodoModel>(
     (ref) => const TodoModel(id: null, description: ''));
@@ -34,7 +34,7 @@ class TodoRegisterView extends ConsumerWidget {
               width: double.infinity, // 横幅いっぱい
               child: ElevatedButton(
                 onPressed: () {
-                  notifier.add(toDoModel.state.title);
+                  notifier.add(toDoModel.state.title?? 'NO-TITLE');
                   Navigator.of(context).pop(); // 前の画面に戻る
                 },
                 child:

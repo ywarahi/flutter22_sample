@@ -1,34 +1,50 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'custom_exception.dart';
 import 'model/todo_model.dart';
 import 'todo_repository.dart';
 
-final firebaseFirestoreProvider =
-    Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
-
 final todoListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
+// TodoList-NotifierProvider
 final todoListNotifierProvider =
     StateNotifierProvider<TodoListStateNotifier, AsyncValue<List<TodoModel>>>(
   (ref) => TodoListStateNotifier(ref.read),
 );
 
-class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
-  final Reader _read;
+// tagList-StateProvider
+final tagListStateProvider = StateProvider<List<String>>((_) => []);
 
+// Filtered-TodoList-Provider
+final Provider<List<TodoModel>> FilteredTodoListProvider =
+    Provider<List<TodoModel>>((ref) {
+  // 依存するProviderを取得
+  final todoListAV = ref.watch(todoListNotifierProvider);
+  final tagListState = ref.watch(tagListStateProvider).state;
+
+  // 絞込条件後のリストを返却
+  todoListAV.maybeWhen(
+    data: (items) {
+      if (tagListState.isNotEmpty) {
+        //return items.where((item) => false).toList();
+        return items.sublist(0, 1);
+      } else {
+        return <TodoModel>[];
+      }
+    },
+    orElse: () => <TodoModel>[],
+  );
+  return <TodoModel>[];
+});
+
+// TodoListの状態管理
+class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
   TodoListStateNotifier(this._read) : super(const AsyncValue.loading()) {
     retrieveItems();
-    // Future<void>.delayed(const Duration(seconds: 5), () {
-    //   state = const AsyncValue.data(<TodoModel>[
-    //     TodoModel(id: 'id', title: 'title-1'),
-    //     TodoModel(id: 'id', title: 'title-2'),
-    //     TodoModel(id: 'id', title: 'title-3'),
-    //   ]);
-    // });
   }
+
+  final Reader _read;
 
   Future<void> retrieveItems({bool isRefreshing = false}) async {
     if (isRefreshing) state = const AsyncValue.loading();

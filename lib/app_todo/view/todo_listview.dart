@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../model/todo_model.dart';
-import '../todo_provider.dart';
+import '../todo_list_notifier.dart';
 
 final currentIndexItem =
     ScopedProvider<TodoModel>((watch) => throw UnimplementedError());
@@ -33,7 +33,8 @@ class TodoListView extends ConsumerWidget {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      }, error: (_, __) {
+      }, error: (error, _) {
+        print(error.toString());
         return const Center(
           child: LinearProgressIndicator(),
         );
@@ -54,6 +55,6 @@ class TodoItemView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final item = watch(currentIndexItem);
-    return ListTile(title: Text(item.title));
+    return ListTile(title: Text(item.title?? 'NO-TITLE'));
   }
 }

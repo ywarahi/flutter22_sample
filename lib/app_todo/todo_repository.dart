@@ -4,21 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import 'custom_exception.dart';
-import 'todo_provider.dart';
+
+// FirebaseFirestor-Provider
+final firebaseFirestoreProvider =
+    Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
 
 abstract class TodoRepositoryIF {
   Future<List<TodoModel>> retrieveItems();
-
   Future<TodoModel> createItem({required TodoModel item});
-
   Future<void> updateItem({required TodoModel item});
-
   Future<void> deleteItem({required TodoModel item});
 }
 
 final todoRepositoryProvider =
     Provider<TodoRepository>((ref) => TodoRepository(ref.read));
 
+// FirestoreからのTODOデータ取得・更新
 class TodoRepository implements TodoRepositoryIF {
   const TodoRepository(this._read);
 
@@ -29,8 +30,9 @@ class TodoRepository implements TodoRepositoryIF {
     try {
       final snap = await _read(firebaseFirestoreProvider)
           .collection('todo')
+          //.where('tags', arrayContains: 'toREAD')
           .orderBy('createdAt', descending: true)
-          .limit(1)
+          //.limit(1)
           .get();
       return snap.docs.map((doc) => TodoModel.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
