@@ -41,6 +41,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'shared_preference/a01_riverpod_shared_preference.dart';
 //import 'nullable/a00_nullable.dart';
 //import 'sqflite/a00_sqflite.dart';
+//import 'cast/a02_list.dart';
 import 'app_todo/todo_app.dart';
 
 void main() {
