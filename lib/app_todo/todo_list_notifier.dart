@@ -47,7 +47,9 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
   final Reader _read;
 
   Future<void> retrieveItems({bool isRefreshing = false}) async {
-    if (isRefreshing) state = const AsyncValue.loading();
+    if (isRefreshing) {
+      state = const AsyncValue.loading();
+    }
     try {
       final items = await _read(todoRepositoryProvider).retrieveItems();
       if (mounted) {
@@ -68,15 +70,15 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
     }
-    // final current = state.maybeWhen(
-    //   data: (value) => value,
-    //   orElse: () => <TodoModel>[],
-    // );
-    //
-    // // dummy loading
-    // // state = const AsyncValue.loading();
-    // // await Future<void>.delayed(const Duration(seconds: 3));
-    //
-    // state = AsyncValue.data(List.of(current)..add(todo));
+  }
+
+  List<String> getTagList() {
+    var tagSet = <String>{};
+    state.whenData((items) {
+      for (final item in items) {
+        tagSet.addAll(item.tags?? []);
+      }
+    });
+    return tagSet.toList(); //.sort((a,b) => a.compareTo(b));
   }
 }
