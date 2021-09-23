@@ -60,13 +60,14 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     }
   }
 
-  Future<void> add(String title) async {
+  Future<void> add(TodoModel item) async {
     try {
-      final dtoItem = TodoModel(
-          title: title, createdAt: DateTime.now(), updatedAt: DateTime.now());
+      final dtoItem =
+          item.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now());
       final newItem =
           await _read(todoRepositoryProvider).createItem(item: dtoItem);
-      state.whenData((items) => state = AsyncValue.data(items..add(newItem)));
+      await retrieveItems();
+      // state.whenData((items) => state = AsyncValue.data(items..add(newItem)));
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
     }
@@ -76,7 +77,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     var tagSet = <String>{};
     state.whenData((items) {
       for (final item in items) {
-        tagSet.addAll(item.tags?? []);
+        tagSet.addAll(item.tags ?? []);
       }
     });
     return tagSet.toList(); //.sort((a,b) => a.compareTo(b));
