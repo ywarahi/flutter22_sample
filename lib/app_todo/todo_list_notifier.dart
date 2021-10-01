@@ -13,11 +13,11 @@ final todoListNotifierProvider =
   (ref) => TodoListStateNotifier(ref.read),
 );
 
-// tagList-StateProvider
+// TagList-StateProvider
 final tagListStateProvider = StateProvider<List<String>>((_) => []);
 
 // Filtered-TodoList-Provider
-final Provider<List<TodoModel>> FilteredTodoListProvider =
+final Provider<List<TodoModel>> filteredTodoListProvider =
     Provider<List<TodoModel>>((ref) {
   // 依存するProviderを取得
   final todoListAV = ref.watch(todoListNotifierProvider);

@@ -5,31 +5,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'todo_model.freezed.dart';
 part 'todo_model.g.dart';
 
-// DateTime? _dateFromTimeStamp(dynamic value) => (value as Timestamp)?.toDate();
-//
-// Timestamp? _timestampFromDate(dynamic value) =>
-//     value is DateTime ? Timestamp.fromDate(value) : null;
-// const timestampKey =
-//     JsonKey(fromJson: _dateFromTimeStamp, toJson: _timestampFromDate);
-// const listKey =
-// JsonKey(fromJson: _dateFromTimeStamp, toJson: _timestampFromDate);
-//
-// @timestampKey DateTime? createdAt,
-// @timestampKey DateTime? updatedAt,
-// @timestampKey DateTime? finishedAt,
-
 class TagsConverter implements JsonConverter<List<String>?, List<dynamic>?> {
   const TagsConverter();
 
   @override
   List<String>? fromJson(List<dynamic>? listDynamic) {
-    //return listDynamic != null ? listDynamic.map((dynamic e) => e as String).toList() : <String>[];
     return listDynamic != null ? listDynamic.cast<String>() : <String>[];
+    //return listDynamic != null ? listDynamic.map((dynamic e) => e as String).toList() : <String>[];
   }
 
   @override
   List<dynamic>? toJson(List<String>? listString) {
-    return listString != null ? List<dynamic>.from(listString) : <dynamic>[];
+    return listString != null ? listString.cast<dynamic>() : <dynamic>[];
+    //return listString != null ? List<dynamic>.from(listString) : <dynamic>[];
   }
 }
 
