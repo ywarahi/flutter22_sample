@@ -1,0 +1,13 @@
+https://pub.dev/packages/flutter_native_splash
+
+dev_dependencies:
+  flutter_native_splash: ^1.2.4
+
+create /assets, and locate png-file.
+create: /flutter_native_splash.yaml
+run: flutter pub run flutter_native_splash:create
+
+■アプリ起動後エラー発生
+　[VERBOSE-2:profiler_metrics_ios.mm(184)] Error retrieving thread information: (ipc/send) invalid destination port
+　...
+　→システム再起動で解決
