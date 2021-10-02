@@ -121,35 +121,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class CustomPage extends StatelessWidget {
-  const CustomPage({required this.panelColor, required this.title});
-
-  final Color panelColor;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final titleTextStyle = Theme.of(context).textTheme.headline6;
-    return Container(
-      child: Center(
-        child: Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-              color: panelColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20.0))),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: titleTextStyle!.fontSize,
-                color: titleTextStyle.color,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

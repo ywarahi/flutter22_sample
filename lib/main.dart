@@ -26,14 +26,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 //import 'flutter_widget/a00_container.dart';
+import 'flutter_widget/a91_gesture_detector.dart';
 
-// void main() {
-//   runApp(
-//     ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
 
 //import 'riverpod/a11_riverpod_provider_scope_overrides.dart';
@@ -44,8 +45,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'sqflite/a00_sqflite.dart';
 //import 'dart_cast/a02_cast_list.dart';
 //import 'dart/a10_control_flow.dart';
-import 'app_todo/todo_app.dart';
-
-void main() {
-  sub();
-}
+// import 'app_todo/todo_app.dart';
+//
+// void main() {
+//   sub();
+// }

@@ -7,12 +7,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         home: Scaffold(
-          body:
-          WebView(
+          body: WebView(
             initialUrl: 'https://flutter.dev',
-          ),
-        ));
+      ),
+    ));
   }
 }
