@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../model/todo_model.dart';
-import '../todo_list_notifier.dart';
+import '../todo_model_notifier.dart';
 
 final currentIndexItem =
     ScopedProvider<TodoModel>((watch) => throw UnimplementedError());
@@ -42,6 +42,7 @@ class TodoListView extends ConsumerWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          watch(todoModelProvider).state = const TodoModel();
           Navigator.of(context).pushNamed('/regist');
         },
         child: const Icon(Icons.add),
@@ -56,6 +57,12 @@ class TodoItemView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final item = watch(currentIndexItem);
-    return ListTile(title: Text(item.title?? 'NO-TITLE'));
+    return GestureDetector(
+      onTap: () {
+        watch(todoModelProvider).state = item;
+        Navigator.of(context).pushNamed('/regist');
+      },
+      child: ListTile(title: Text(item.title ?? 'NO-TITLE')),
+    );
   }
 }

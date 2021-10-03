@@ -7,6 +7,9 @@ import 'todo_repository.dart';
 
 final todoListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
+// todo-model for update
+final todoModelProvider = StateProvider<TodoModel>((ref) => const TodoModel());
+
 // TodoList-NotifierProvider
 final todoListNotifierProvider =
     StateNotifierProvider<TodoListStateNotifier, AsyncValue<List<TodoModel>>>(
@@ -60,7 +63,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     }
   }
 
-  Future<void> add(TodoModel item) async {
+  Future<void> createItem(TodoModel item) async {
     try {
       final dtoItem =
           item.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now());
@@ -73,8 +76,19 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     }
   }
 
+  Future<void> updateItem(TodoModel item) async {
+    try {
+      final dtoItem = item.copyWith(updatedAt: DateTime.now());
+      await _read(todoRepositoryProvider).updateItem(item: dtoItem);
+      await retrieveItems();
+      // state.whenData((items) => state = AsyncValue.data(items..add(newItem)));
+    } on CustomException catch (e) {
+      _read(todoListExceptionProvider).state = e;
+    }
+  }
+
   List<String> getTagList() {
-    var tagSet = <String>{};
+    final tagSet = <String>{};
     state.whenData((items) {
       for (final item in items) {
         tagSet.addAll(item.tags ?? []);

@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import 'todo_property_notifier.dart';
-import 'view/todo_listview.dart';
-import 'view/todo_register_view.dart';
+import 'view/todo_list_view.dart';
+import 'view/todo_update_view.dart';
 
 Future<void> sub() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
         routes: <String, WidgetBuilder>{
           '/list': (BuildContext context) => TodoListView(),
-          '/regist': (BuildContext context) => TodoRegisterView(),
+          '/regist': (BuildContext context) => TodoUpdateView(),
         },
         home: propertyAV.when(
           data: (data) => TodoListView(),
