@@ -41,6 +41,7 @@ abstract class TodoProperty with _$TodoProperty {
   const factory TodoProperty({
     String? id,
     String? name,
+    @TagsConverter() List<String>? tags,
     @MapStrConverter() Map<String, String>? mapStr
 }) = _TodoProperty;
 

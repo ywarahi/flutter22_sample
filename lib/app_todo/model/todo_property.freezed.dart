@@ -23,10 +23,12 @@ class _$TodoPropertyTearOff {
   _TodoProperty call(
       {String? id,
       String? name,
+      @TagsConverter() List<String>? tags,
       @MapStrConverter() Map<String, String>? mapStr}) {
     return _TodoProperty(
       id: id,
       name: name,
+      tags: tags,
       mapStr: mapStr,
     );
   }
@@ -43,6 +45,8 @@ const $TodoProperty = _$TodoPropertyTearOff();
 mixin _$TodoProperty {
   String? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  @TagsConverter()
+  List<String>? get tags => throw _privateConstructorUsedError;
   @MapStrConverter()
   Map<String, String>? get mapStr => throw _privateConstructorUsedError;
 
@@ -60,6 +64,7 @@ abstract class $TodoPropertyCopyWith<$Res> {
   $Res call(
       {String? id,
       String? name,
+      @TagsConverter() List<String>? tags,
       @MapStrConverter() Map<String, String>? mapStr});
 }
 
@@ -75,6 +80,7 @@ class _$TodoPropertyCopyWithImpl<$Res> implements $TodoPropertyCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? tags = freezed,
     Object? mapStr = freezed,
   }) {
     return _then(_value.copyWith(
@@ -86,6 +92,10 @@ class _$TodoPropertyCopyWithImpl<$Res> implements $TodoPropertyCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       mapStr: mapStr == freezed
           ? _value.mapStr
           : mapStr // ignore: cast_nullable_to_non_nullable
@@ -104,6 +114,7 @@ abstract class _$TodoPropertyCopyWith<$Res>
   $Res call(
       {String? id,
       String? name,
+      @TagsConverter() List<String>? tags,
       @MapStrConverter() Map<String, String>? mapStr});
 }
 
@@ -121,6 +132,7 @@ class __$TodoPropertyCopyWithImpl<$Res> extends _$TodoPropertyCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? tags = freezed,
     Object? mapStr = freezed,
   }) {
     return _then(_TodoProperty(
@@ -132,6 +144,10 @@ class __$TodoPropertyCopyWithImpl<$Res> extends _$TodoPropertyCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       mapStr: mapStr == freezed
           ? _value.mapStr
           : mapStr // ignore: cast_nullable_to_non_nullable
@@ -143,7 +159,11 @@ class __$TodoPropertyCopyWithImpl<$Res> extends _$TodoPropertyCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TodoProperty extends _TodoProperty with DiagnosticableTreeMixin {
-  const _$_TodoProperty({this.id, this.name, @MapStrConverter() this.mapStr})
+  const _$_TodoProperty(
+      {this.id,
+      this.name,
+      @TagsConverter() this.tags,
+      @MapStrConverter() this.mapStr})
       : super._();
 
   factory _$_TodoProperty.fromJson(Map<String, dynamic> json) =>
@@ -154,12 +174,15 @@ class _$_TodoProperty extends _TodoProperty with DiagnosticableTreeMixin {
   @override
   final String? name;
   @override
+  @TagsConverter()
+  final List<String>? tags;
+  @override
   @MapStrConverter()
   final Map<String, String>? mapStr;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TodoProperty(id: $id, name: $name, mapStr: $mapStr)';
+    return 'TodoProperty(id: $id, name: $name, tags: $tags, mapStr: $mapStr)';
   }
 
   @override
@@ -169,6 +192,7 @@ class _$_TodoProperty extends _TodoProperty with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'TodoProperty'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('tags', tags))
       ..add(DiagnosticsProperty('mapStr', mapStr));
   }
 
@@ -180,6 +204,8 @@ class _$_TodoProperty extends _TodoProperty with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.tags, tags) ||
+                const DeepCollectionEquality().equals(other.tags, tags)) &&
             (identical(other.mapStr, mapStr) ||
                 const DeepCollectionEquality().equals(other.mapStr, mapStr)));
   }
@@ -189,6 +215,7 @@ class _$_TodoProperty extends _TodoProperty with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(mapStr);
 
   @JsonKey(ignore: true)
@@ -206,6 +233,7 @@ abstract class _TodoProperty extends TodoProperty {
   const factory _TodoProperty(
       {String? id,
       String? name,
+      @TagsConverter() List<String>? tags,
       @MapStrConverter() Map<String, String>? mapStr}) = _$_TodoProperty;
   const _TodoProperty._() : super._();
 
@@ -216,6 +244,9 @@ abstract class _TodoProperty extends TodoProperty {
   String? get id => throw _privateConstructorUsedError;
   @override
   String? get name => throw _privateConstructorUsedError;
+  @override
+  @TagsConverter()
+  List<String>? get tags => throw _privateConstructorUsedError;
   @override
   @MapStrConverter()
   Map<String, String>? get mapStr => throw _privateConstructorUsedError;
