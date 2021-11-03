@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter22_sample/app_todo/model/todo_item.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_item_notifier.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../model/todo_model.dart';
-import '../notifier/todo_model_notifier.dart';
-
 final currentIndexItem =
-    ScopedProvider<TodoModel>((watch) => throw UnimplementedError());
+    ScopedProvider<TodoItem>((watch) => throw UnimplementedError());
 
 class TodoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
     final todoListAV = watch(todoListNotifierProvider);
-    final tagList = watch(todoListNotifierProvider.notifier).getTagList();
+    //final tagList = watch(todoListNotifierProvider.notifier).getTagList();
 
     // build-flutter_widget
     return Scaffold(
@@ -42,7 +42,7 @@ class TodoListView extends ConsumerWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          watch(todoModelProvider).state = const TodoModel(tags: ['DEFAULT']);
+          watch(todoItemProvider).state = const TodoItem(tags: ['DEFAULT']);
           Navigator.of(context).pushNamed('/regist');
         },
         child: const Icon(Icons.add),
@@ -59,7 +59,7 @@ class TodoItemView extends ConsumerWidget {
     final item = watch(currentIndexItem);
     return GestureDetector(
       onTap: () {
-        watch(todoModelProvider).state = item;
+        watch(todoItemProvider).state = item;
         Navigator.of(context).pushNamed('/regist');
       },
       child: ListTile(title: Text(item.title ?? 'NO-TITLE')),

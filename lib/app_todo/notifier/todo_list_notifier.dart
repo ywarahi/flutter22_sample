@@ -1,17 +1,14 @@
 import 'package:flutter22_sample/app_todo/custom_exception.dart';
-import 'package:flutter22_sample/app_todo/model/todo_model.dart';
-import 'package:flutter22_sample/app_todo/repository/todo_model_repository.dart';
+import 'package:flutter22_sample/app_todo/model/todo_item.dart';
+import 'package:flutter22_sample/app_todo/repository/todo_item_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 final todoListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
-// todo-model for update
-final todoModelProvider = StateProvider<TodoModel>((ref) => const TodoModel());
-
 // TodoList-NotifierProvider
 final todoListNotifierProvider =
-    StateNotifierProvider<TodoListStateNotifier, AsyncValue<List<TodoModel>>>(
+    StateNotifierProvider<TodoListStateNotifier, AsyncValue<List<TodoItem>>>(
   (ref) => TodoListStateNotifier(ref.read),
 );
 
@@ -19,8 +16,8 @@ final todoListNotifierProvider =
 final tagListStateProvider = StateProvider<List<String>>((_) => []);
 
 // Filtered-TodoList-Provider
-final Provider<List<TodoModel>> filteredTodoListProvider =
-    Provider<List<TodoModel>>((ref) {
+final Provider<List<TodoItem>> filteredTodoListProvider =
+    Provider<List<TodoItem>>((ref) {
   // 依存するProviderを取得
   final todoListAV = ref.watch(todoListNotifierProvider);
   final tagListState = ref.watch(tagListStateProvider).state;
@@ -32,16 +29,16 @@ final Provider<List<TodoModel>> filteredTodoListProvider =
         //return items.where((item) => false).toList();
         return items.sublist(0, 1);
       } else {
-        return <TodoModel>[];
+        return <TodoItem>[];
       }
     },
-    orElse: () => <TodoModel>[],
+    orElse: () => <TodoItem>[],
   );
-  return <TodoModel>[];
+  return <TodoItem>[];
 });
 
 // TodoListの状態管理
-class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
+class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoItem>>> {
   TodoListStateNotifier(this._read) : super(const AsyncValue.loading()) {
     retrieveItems();
   }
@@ -62,7 +59,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     }
   }
 
-  Future<void> createItem(TodoModel item) async {
+  Future<void> createItem(TodoItem item) async {
     try {
       final dtoItem =
           item.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now());
@@ -73,7 +70,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     }
   }
 
-  Future<void> updateItem(TodoModel item) async {
+  Future<void> updateItem(TodoItem item) async {
     try {
       final dtoItem = item.copyWith(updatedAt: DateTime.now());
       await _read(todoRepositoryProvider).updateItem(item: dtoItem);

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter22_sample/app_todo/custom_exception.dart';
-import 'package:flutter22_sample/app_todo/model/todo_model.dart';
+import 'package:flutter22_sample/app_todo/model/todo_item.dart';
 import 'package:flutter22_sample/app_todo/repository/todo_firebase_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
@@ -10,13 +10,13 @@ final todoRepositoryProvider =
 
 // FirestoreからのTODOデータ取得・更新
 abstract class TodoRepositoryIF {
-  Future<List<TodoModel>> retrieveItems();
+  Future<List<TodoItem>> retrieveItems();
 
-  Future<TodoModel> createItem({required TodoModel item});
+  Future<TodoItem> createItem({required TodoItem item});
 
-  Future<void> updateItem({required TodoModel item});
+  Future<void> updateItem({required TodoItem item});
 
-  Future<void> deleteItem({required TodoModel item});
+  Future<void> deleteItem({required TodoItem item});
 }
 
 // FirestoreからのTODOデータ取得・更新
@@ -26,7 +26,7 @@ class TodoRepository implements TodoRepositoryIF {
   final Reader _read;
 
   @override
-  Future<List<TodoModel>> retrieveItems() async {
+  Future<List<TodoItem>> retrieveItems() async {
     try {
       final snap = await _read(firebaseFirestoreProvider)
           .collection('todo')
@@ -34,14 +34,14 @@ class TodoRepository implements TodoRepositoryIF {
           .orderBy('createdAt', descending: true)
           //.limit(1)
           .get();
-      return snap.docs.map((doc) => TodoModel.fromDocument(doc)).toList();
+      return snap.docs.map((doc) => TodoItem.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
   @override
-  Future<TodoModel> createItem({required TodoModel item}) async {
+  Future<TodoItem> createItem({required TodoItem item}) async {
     try {
       final docRef = await _read(firebaseFirestoreProvider)
           .collection('todo')
@@ -53,7 +53,7 @@ class TodoRepository implements TodoRepositoryIF {
   }
 
   @override
-  Future<void> updateItem({required TodoModel item}) async {
+  Future<void> updateItem({required TodoItem item}) async {
     try {
       await _read(firebaseFirestoreProvider)
           .collection('todo')
@@ -65,7 +65,7 @@ class TodoRepository implements TodoRepositoryIF {
   }
 
   @override
-  Future<void> deleteItem({required TodoModel item}) async {
+  Future<void> deleteItem({required TodoItem item}) async {
     try {
       await _read(firebaseFirestoreProvider)
           .collection('todo')
