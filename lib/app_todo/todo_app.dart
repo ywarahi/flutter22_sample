@@ -1,11 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_property_notifier.dart';
+import 'package:flutter22_sample/app_todo/view/todo_list_view.dart';
+import 'package:flutter22_sample/app_todo/view/todo_update_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
-
-import 'todo_property_notifier.dart';
-import 'view/todo_list_view.dart';
-import 'view/todo_update_view.dart';
 
 Future<void> sub() async {
   WidgetsFlutterBinding.ensureInitialized();

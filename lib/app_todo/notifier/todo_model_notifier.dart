@@ -1,9 +1,8 @@
+import 'package:flutter22_sample/app_todo/custom_exception.dart';
+import 'package:flutter22_sample/app_todo/model/todo_model.dart';
+import 'package:flutter22_sample/app_todo/repository/todo_model_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
-
-import 'custom_exception.dart';
-import 'model/todo_model.dart';
-import 'todo_repository.dart';
 
 final todoListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -67,10 +66,8 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
     try {
       final dtoItem =
           item.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now());
-      final newItem =
-          await _read(todoRepositoryProvider).createItem(item: dtoItem);
+      await _read(todoRepositoryProvider).createItem(item: dtoItem);
       await retrieveItems();
-      // state.whenData((items) => state = AsyncValue.data(items..add(newItem)));
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
     }
@@ -81,7 +78,6 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoModel>>> {
       final dtoItem = item.copyWith(updatedAt: DateTime.now());
       await _read(todoRepositoryProvider).updateItem(item: dtoItem);
       await retrieveItems();
-      // state.whenData((items) => state = AsyncValue.data(items..add(newItem)));
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
     }

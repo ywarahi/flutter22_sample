@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../model/todo_model.dart';
-import '../todo_model_notifier.dart';
+import '../notifier/todo_model_notifier.dart';
 
 final currentIndexItem =
     ScopedProvider<TodoModel>((watch) => throw UnimplementedError());
