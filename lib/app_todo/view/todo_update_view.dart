@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter22_sample/app_todo/notifier/todo_item_notifier.dart';
 import 'package:flutter22_sample/app_todo/notifier/todo_list_notifier.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -9,8 +10,13 @@ class TodoUpdateView extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final todoList = context.read(todoListNotifierProvider.notifier);
     final todoItem = watch(todoItemProvider);
+    final tagListAV = watch(tagListNotifierProvider);
     final _formKey = GlobalKey<FormState>();
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    //tagListAV.data.map(data: data, loading: loading, error: error)
+
+    print(tagListAV.toString());
 
     // build-flutter_widget
     return Scaffold(
@@ -62,6 +68,16 @@ class TodoUpdateView extends ConsumerWidget {
                   },
                 ), // description
                 const SizedBox(height: 8),
+                DropdownButton<String>(
+                  items: const [
+                    DropdownMenuItem<String>(
+                      child: Text('zzz'),
+                    ),
+                    // DropdownMenuItem<String>(
+                    //   child: Text('yyy'),
+                    // )
+                  ],
+                ),
                 SizedBox(
                   width: double.infinity, // 横幅いっぱい
                   child: ElevatedButton(

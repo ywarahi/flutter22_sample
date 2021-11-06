@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 final todoTagRepositoryProvider =
-Provider<TodoTagRepository>((ref) => TodoTagRepository(ref.read));
+    Provider<TodoTagRepository>((ref) => TodoTagRepository(ref.read));
 
 // FirestoreからのTagデータ取得・更新
 abstract class TodoTagIF {
@@ -30,7 +30,7 @@ class TodoTagRepository implements TodoTagIF {
     try {
       final snap = await _read(firebaseFirestoreProvider)
           .collection('todo_tag')
-          .orderBy('name', descending: true)
+          .orderBy('name', descending: false)
           .get();
       return snap.docs.map((doc) => TodoTag.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {

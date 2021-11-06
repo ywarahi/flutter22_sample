@@ -5,11 +5,11 @@ import 'package:flutter22_sample/app_todo/repository/todo_firebase_repository.da
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-final todoRepositoryProvider =
-    Provider<TodoRepository>((ref) => TodoRepository(ref.read));
+final todoItemRepositoryProvider =
+    Provider<TodoItemRepository>((ref) => TodoItemRepository(ref.read));
 
 // FirestoreからのTODOデータ取得・更新
-abstract class TodoRepositoryIF {
+abstract class TodoItemRepositoryIF {
   Future<List<TodoItem>> retrieveItems();
 
   Future<TodoItem> createItem({required TodoItem item});
@@ -20,8 +20,8 @@ abstract class TodoRepositoryIF {
 }
 
 // FirestoreからのTODOデータ取得・更新
-class TodoRepository implements TodoRepositoryIF {
-  const TodoRepository(this._read);
+class TodoItemRepository implements TodoItemRepositoryIF {
+  const TodoItemRepository(this._read);
 
   final Reader _read;
 

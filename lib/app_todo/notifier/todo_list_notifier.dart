@@ -50,7 +50,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoItem>>> {
       state = const AsyncValue.loading();
     }
     try {
-      final items = await _read(todoRepositoryProvider).retrieveItems();
+      final items = await _read(todoItemRepositoryProvider).retrieveItems();
       if (mounted) {
         state = AsyncValue.data(items);
       }
@@ -63,7 +63,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoItem>>> {
     try {
       final dtoItem =
           item.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now());
-      await _read(todoRepositoryProvider).createItem(item: dtoItem);
+      await _read(todoItemRepositoryProvider).createItem(item: dtoItem);
       await retrieveItems();
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
@@ -73,7 +73,7 @@ class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoItem>>> {
   Future<void> updateItem(TodoItem item) async {
     try {
       final dtoItem = item.copyWith(updatedAt: DateTime.now());
-      await _read(todoRepositoryProvider).updateItem(item: dtoItem);
+      await _read(todoItemRepositoryProvider).updateItem(item: dtoItem);
       await retrieveItems();
     } on CustomException catch (e) {
       _read(todoListExceptionProvider).state = e;
