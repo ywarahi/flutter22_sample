@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Jsonファイル ⇨ RootBundle ⇨ StateNotifierProvider ⇨ Map<String, dynamic>>
+
 final jsonMapProvider = StateNotifierProvider<JsonMapStateNotifier,
     AsyncValue<Map<String, dynamic>>>(
   (ref) => JsonMapStateNotifier(),
