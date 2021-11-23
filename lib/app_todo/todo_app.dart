@@ -4,6 +4,7 @@ import 'package:flutter22_sample/app_todo/notifier/todo_property_notifier.dart';
 import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_notifier.dart';
 import 'package:flutter22_sample/app_todo/view/todo_list_view.dart';
 import 'package:flutter22_sample/app_todo/view/todo_update_view.dart';
+import 'package:flutter22_sample/app_todo/view/todo_search_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends ConsumerWidget {
         routes: <String, WidgetBuilder>{
           '/list': (BuildContext context) => TodoListView(),
           '/regist': (BuildContext context) => TodoUpdateView(),
+          '/search': (BuildContext context) => TodoSearchView(),
         },
         home: (propertyAV is AsyncError || tagListAV is AsyncError)
             ? const Scaffold(body: Text('error'))

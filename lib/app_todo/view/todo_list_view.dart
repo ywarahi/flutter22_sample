@@ -42,8 +42,10 @@ class TodoListView extends ConsumerWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          watch(todoItemProvider).state = const TodoItem(tags: ['DEFAULT']);
-          Navigator.of(context).pushNamed('/regist');
+          // watch(todoItemProvider).state = const TodoItem(tags: ['DEFAULT']);
+          // Navigator.of(context).pushNamed('/regist');
+
+          Navigator.of(context).pushNamed('/search');
         },
         child: const Icon(Icons.add),
       ),
