@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter22_sample/app_todo/model/todo_item.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_search_notifier.dart';
-import 'package:flutter22_sample/app_todo/repository/algolia_search_repository.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_searched_list_sn_provider.dart';
+import 'package:flutter22_sample/app_todo/repository/algolia_av_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:algolia/algolia.dart';
@@ -14,7 +14,7 @@ class TodoSearchView extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
     final query = watch(queryStateProvider);
-    final searched = watch(searchedListProvider);
+    final searched = watch(todoSearchedListSNProvider);
 
     // build-flutter_widget
     return Scaffold(

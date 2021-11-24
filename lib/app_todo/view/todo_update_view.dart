@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_item_notifier.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_list_notifier.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_notifier.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_item_update_provider.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_list_sn_provider.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_sn_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 class TodoUpdateView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final todoList = context.read(todoListNotifierProvider.notifier);
-    final todoItem = watch(todoItemProvider);
-    final tagListAV = watch(tagListNotifierProvider);
+    final todoList = context.read(todoListSNProvider.notifier);
+    final todoItem = watch(todoItemUpdateProvider);
+    final tagListAV = watch(todoTagListSNProvider);
     final _formKey = GlobalKey<FormState>();
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 

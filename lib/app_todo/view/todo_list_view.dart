@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter22_sample/app_todo/model/todo_item.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_item_notifier.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_list_notifier.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_item_update_provider.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_list_sn_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -12,7 +12,7 @@ class TodoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
-    final todoListAV = watch(todoListNotifierProvider);
+    final todoListAV = watch(todoListSNProvider);
     //final tagList = watch(todoListNotifierProvider.notifier).getTagList();
 
     // build-flutter_widget
@@ -61,7 +61,7 @@ class TodoItemView extends ConsumerWidget {
     final item = watch(currentIndexItem);
     return GestureDetector(
       onTap: () {
-        watch(todoItemProvider).state = item;
+        watch(todoItemUpdateProvider).state = item;
         Navigator.of(context).pushNamed('/regist');
       },
       child: ListTile(title: Text(item.title ?? 'NO-TITLE')),

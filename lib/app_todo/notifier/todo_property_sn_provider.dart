@@ -1,9 +1,9 @@
 import 'package:flutter22_sample/app_todo/model/todo_property.dart';
-import 'package:flutter22_sample/app_todo/repository/todo_property_repository.dart';
+import 'package:flutter22_sample/app_todo/repository/todo_property_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-final todoPropertyStateNotifierProvider = StateNotifierProvider<
+final todoPropertySNProvider = StateNotifierProvider<
     TodoPropertyStateNotifier, AsyncValue<TodoProperty>>((ref) {
       return TodoPropertyStateNotifier(ref.read);
 });

@@ -1,13 +1,13 @@
 import 'package:flutter22_sample/app_todo/custom_exception.dart';
 import 'package:flutter22_sample/app_todo/model/todo_item.dart';
-import 'package:flutter22_sample/app_todo/repository/todo_item_repository.dart';
+import 'package:flutter22_sample/app_todo/repository/todo_item_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 final todoListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
 // TodoList-NotifierProvider
-final todoListNotifierProvider =
+final todoListSNProvider =
     StateNotifierProvider<TodoListStateNotifier, AsyncValue<List<TodoItem>>>(
   (ref) => TodoListStateNotifier(ref.read),
 );
@@ -19,7 +19,7 @@ final tagListStateProvider = StateProvider<List<String>>((_) => []);
 final Provider<List<TodoItem>> filteredTodoListProvider =
     Provider<List<TodoItem>>((ref) {
   // 依存するProviderを取得
-  final todoListAV = ref.watch(todoListNotifierProvider);
+  final todoListAV = ref.watch(todoListSNProvider);
   final tagListState = ref.watch(tagListStateProvider).state;
 
   // 絞込条件後のリストを返却

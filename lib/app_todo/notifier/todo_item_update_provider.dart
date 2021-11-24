@@ -3,4 +3,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 // TodoItem for update
-final todoItemProvider = StateProvider<TodoItem>((ref) => const TodoItem());
+final todoItemUpdateProvider =
+    StateProvider<TodoItem>((ref) => const TodoItem());

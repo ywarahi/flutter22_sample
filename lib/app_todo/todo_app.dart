@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_property_notifier.dart';
-import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_notifier.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_property_sn_provider.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_tag_list_sn_provider.dart';
 import 'package:flutter22_sample/app_todo/view/todo_list_view.dart';
 import 'package:flutter22_sample/app_todo/view/todo_update_view.dart';
 import 'package:flutter22_sample/app_todo/view/todo_search_view.dart';
@@ -19,8 +19,8 @@ Future<void> sub() async {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final propertyAV = watch(todoPropertyStateNotifierProvider);
-    final tagListAV = watch(tagListNotifierProvider);
+    final propertyAV = watch(todoPropertySNProvider);
+    final tagListAV = watch(todoTagListSNProvider);
 
     return MaterialApp(
         routes: <String, WidgetBuilder>{

@@ -4,14 +4,14 @@ import 'package:riverpod/riverpod.dart';
 
 import 'json_file_state_notifier.dart';
 
-final _algoliaSettingProvider = StateNotifierProvider<JsonFileStateNotifier,
+final _algoliaIdProvider = StateNotifierProvider<JsonFileStateNotifier,
     AsyncValue<Map<String, dynamic>>>(
   (ref) => JsonFileStateNotifier('assets/algolia.json'),
 );
 
-final algoliaSearchProvider = Provider<AsyncValue<Algolia>>((ref) {
+final algoliaAVProvider = Provider<AsyncValue<Algolia>>((ref) {
   var result = const AsyncValue<Algolia>.loading();
-  final algoliaSettingAV = ref.watch(_algoliaSettingProvider)
+  final algoliaSettingAV = ref.watch(_algoliaIdProvider)
     ..when(data: (map) {
       result = AsyncData(Algolia.init(
           applicationId: map['applicationId'] as String,

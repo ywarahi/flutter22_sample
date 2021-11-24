@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter22_sample/app_todo/custom_exception.dart';
 import 'package:flutter22_sample/app_todo/model/todo_tag.dart';
-import 'package:flutter22_sample/app_todo/repository/firebase_repository.dart';
+import 'package:flutter22_sample/app_todo/repository/firebase_firestore_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 

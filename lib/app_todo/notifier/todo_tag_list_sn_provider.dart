@@ -1,11 +1,11 @@
 import 'package:flutter22_sample/app_todo/custom_exception.dart';
 import 'package:flutter22_sample/app_todo/model/todo_tag.dart';
-import 'package:flutter22_sample/app_todo/repository/todo_tag_repository.dart';
+import 'package:flutter22_sample/app_todo/repository/todo_tag_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 // TagList-NotifierProvider
-final tagListNotifierProvider =
+final todoTagListSNProvider =
   StateNotifierProvider<TagListStateNotifier, AsyncValue<List<TodoTag>>>(
       (ref) => TagListStateNotifier(ref.read),
 );
