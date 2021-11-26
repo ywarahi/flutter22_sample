@@ -12,31 +12,6 @@ final todoListSNProvider =
   (ref) => TodoListStateNotifier(ref.read),
 );
 
-// TagList-StateProvider
-final tagListStateProvider = StateProvider<List<String>>((_) => []);
-
-// Filtered-TodoList-Provider
-final Provider<List<TodoItem>> filteredTodoListProvider =
-    Provider<List<TodoItem>>((ref) {
-  // 依存するProviderを取得
-  final todoListAV = ref.watch(todoListSNProvider);
-  final tagListState = ref.watch(tagListStateProvider).state;
-
-  // 絞込条件後のリストを返却
-  todoListAV.maybeWhen(
-    data: (items) {
-      if (tagListState.isNotEmpty) {
-        //return items.where((item) => false).toList();
-        return items.sublist(0, 1);
-      } else {
-        return <TodoItem>[];
-      }
-    },
-    orElse: () => <TodoItem>[],
-  );
-  return <TodoItem>[];
-});
-
 // TodoListの状態管理
 class TodoListStateNotifier extends StateNotifier<AsyncValue<List<TodoItem>>> {
   TodoListStateNotifier(this._read) : super(const AsyncValue.loading()) {
