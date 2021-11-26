@@ -13,7 +13,7 @@ class TodoSearchView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
-    final query = watch(queryStateProvider);
+    final query = watch(queryStringStateProvider);
     final searched = watch(todoSearchedListSNProvider);
 
     // build-flutter_widget

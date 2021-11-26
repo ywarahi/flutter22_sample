@@ -1,19 +1,22 @@
 import 'package:algolia/algolia.dart';
 import 'package:flutter22_sample/app_todo/model/todo_item.dart';
 import 'package:flutter22_sample/app_todo/repository/algolia_av_provider.dart';
+import 'package:flutter22_sample/app_todo/notifier/todo_list_sn_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
 // TagList-StateProvider
-final queryStateProvider = StateProvider<String>((_) => '1');
+final queryStringStateProvider = StateProvider<String>((_) => '1');
 
 // Searched-List-Provider
 final todoSearchedListSNProvider =
     StateNotifierProvider<TodoSearchedListStateNotifier, List<TodoItem>>(
         (ref) {
-  final queryString = ref.watch(queryStateProvider).state;
+  final queryString = ref.watch(queryStringStateProvider).state;
   final algoliaAV = ref.watch(algoliaAVProvider);
-  return TodoSearchedListStateNotifier(queryString, algoliaAV, <TodoItem>[]);
+  final initData = ref.read(todoListSNProvider);
+
+  return TodoSearchedListStateNotifier(queryString, algoliaAV, initData);
 });
 
 class TodoSearchedListStateNotifier extends StateNotifier<List<TodoItem>> {
@@ -34,9 +37,9 @@ class TodoSearchedListStateNotifier extends StateNotifier<List<TodoItem>> {
       var snap = await query.getObjects();
       state = snap.hits.map<TodoItem>((e) => TodoItem.fromAlgolia(e.data)).toList();
     }, loading: () {
-      state = <TodoItem>[];
+      state = _initData;
     }, error: (_, __) {
-      state = <TodoItem>[];
+      state = _initData;
     });
   }
 }

@@ -12,7 +12,7 @@ class TodoListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
-    final todoListAV = watch(todoListSNProvider);
+    final todoList = watch(todoListSNProvider);
     //final tagList = watch(todoListNotifierProvider.notifier).getTagList();
 
     // build-flutter_widget
@@ -20,26 +20,20 @@ class TodoListView extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('ToDo ListView'),
       ),
-      body: todoListAV.when(data: (data) {
-        return ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return ProviderScope(
-              overrides: [currentIndexItem.overrideWithValue(data[index])],
-              child: const TodoItemView(),
-            );
-          },
-        );
-      }, loading: () {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }, error: (error, _) {
-        print(error.toString());
-        return const Center(
-          child: LinearProgressIndicator(),
-        );
-      }),
+      body: todoList.isNotEmpty
+          ? ListView.builder(
+              itemCount: todoList.length,
+              itemBuilder: (context, index) {
+                return ProviderScope(
+                  overrides: [
+                    currentIndexItem.overrideWithValue(todoList[index])
+                  ],
+                  child: const TodoItemView(),
+                );
+              })
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // watch(todoItemProvider).state = const TodoItem(tags: ['DEFAULT']);

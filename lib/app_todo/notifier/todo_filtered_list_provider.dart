@@ -10,20 +10,20 @@ final tagListStateProvider = StateProvider<List<String>>((_) => []);
 final Provider<List<TodoItem>> filteredTodoListProvider =
     Provider<List<TodoItem>>((ref) {
   // 依存するProviderを取得
-  final todoListAV = ref.watch(todoListSNProvider);
-  final tagListState = ref.watch(tagListStateProvider).state;
+  final todoList = ref.watch(todoListSNProvider);
+  final tagList = ref.watch(tagListStateProvider).state;
 
   // 絞込条件後のリストを返却
-  todoListAV.maybeWhen(
-    data: (items) {
-      if (tagListState.isNotEmpty) {
-        //return items.where((item) => false).toList();
-        return items.sublist(0, 1);
-      } else {
-        return <TodoItem>[];
+  if (tagList.isNotEmpty) {
+    return todoList.where((item) {
+      for (var tag in item.tags ?? <String>[]) {
+        if (tagList.contains(tag)) {
+          return true;
+        }
       }
-    },
-    orElse: () => <TodoItem>[],
-  );
-  return <TodoItem>[];
+      return false;
+    }).toList();
+  } else {
+    return <TodoItem>[];
+  }
 });
