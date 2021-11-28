@@ -14,33 +14,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
 //import 'riverpod/a12_riverpod_async_value.dart';
-//import 'flutter_widget/a02_bottom_navigation_bar.dart';
 //import 'packageinfo/a01_packageinfo_simple.dart';
 //import 'packageinfo/a02_packageinfo_riverpod.dart';
-//import 'sqflite/a01_riverpod_sqflite.dart';
+//import 'flutter_widget/a00_container.dart';
 //import 'flutter_widget/a01_material_app.dart';
-//import 'webview/a01_webview_simple.dart';
+//import 'flutter_widget/a02_bottom_navigation_bar.dart';
 //import 'flutter_widget/a03_tabbar.dart';
-//import 'flutter_widget/a04_tabbar_bottombar.dart';
+import 'flutter_widget/a04_tabbar_bottombar.dart';
+//import 'flutter_widget/a10_listview.dart';
+//import 'flutter_widget/a11_dropdown_button.dart';
+//import 'flutter_widget/a91_gesture_detector.dart';
+//import 'flutter_widget/a92_dismissible.dart';
+//import 'flutter_widget/a20_dialog.dart';
+//import 'webview/a01_webview_simple.dart';
+//import 'sqflite/a01_riverpod_sqflite.dart';
 //import 'infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
 //import 'infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'infinite_scroll_tab_view/a03_istv_x_bnb.dart';
-//import 'flutter_widget/a00_container.dart';
-//import 'flutter_widget/a91_gesture_detector.dart';
-//import 'flutter_widget/a10_listview.dart';
-//import 'flutter_widget/a11_dropdown_button.dart';
-//import 'flutter_widget/a92_dismissible.dart';
-//import 'flutter_widget/a20_dialog.dart';
 //import 'dart/a80_root_bundle.dart';
 //import 'dart/a81_json_decode.dart';
 
-// void main() {
-//   runApp(
-//     ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
 //import 'riverpod/a11_riverpod_provider_scope_overrides.dart';
 //import 'firebase/a01_firebase_simple.dart';
@@ -50,8 +50,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'sqflite/a00_sqflite.dart';
 //import 'dart_cast/a02_cast_list.dart';
 //import 'dart/a10_control_flow.dart';
-import 'app_todo/todo_app.dart';
-
-void main() {
-  sub();
-}
+// import 'app_todo/todo_app.dart';
+//
+// void main() {
+//   sub();
+// }
