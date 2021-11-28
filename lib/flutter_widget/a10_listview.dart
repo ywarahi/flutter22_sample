@@ -15,7 +15,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: const Text('ProviderListener'),
+        title: const Text('Provider Listener'),
       ),
       body: ListView.builder(
           itemCount: dataList.length,

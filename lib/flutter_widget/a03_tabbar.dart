@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TabBarを持つ共通Scaffoldにて、複数のWidgetの遷移制御する
+
 // Tab数が多すぎると視認性に問題あり、3〜5つが適切
 final tabPages = <Widget>[
   const CustomPage(panelColor: Colors.cyan, title: 'Home'),
@@ -67,7 +69,7 @@ class CustomPage extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
               color: panelColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20.0))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
           child: Center(
             child: Text(
               title,

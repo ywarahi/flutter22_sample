@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// BottomNavigationBarを持つ共通Scaffoldにて、複数のWidgetの遷移制御する
+
 final bottomTabPages = <Widget>[
   const CustomPage(panelColor: Colors.cyan, title: 'Home'),
-  const CustomPage(panelColor: Colors.green, title: 'Settings'),
-  const CustomPage(panelColor: Colors.pink, title: 'Search')
+  const CustomPage(panelColor: Colors.pink, title: 'Search'),
+  // const CustomPage(panelColor: Colors.green, title: 'Settings'),
+  const CustomPage(panelColor: Colors.amberAccent, title: 'About'),
 ];
 
 final bottomTabItems = <BottomNavigationBarItem>[
@@ -13,12 +16,16 @@ final bottomTabItems = <BottomNavigationBarItem>[
     label: 'Home',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.settings),
-    label: 'Setting',
-  ),
-  const BottomNavigationBarItem(
     icon: Icon(Icons.search),
     label: 'Search',
+  ),
+  // const BottomNavigationBarItem(
+  //   icon: Icon(Icons.settings),
+  //   label: 'Setting',
+  // ),
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.info),
+    label: 'About',
   ),
 ];
 
@@ -90,7 +97,7 @@ class CustomPage extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
               color: panelColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20.0))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
           child: Center(
             child: Text(
               title,

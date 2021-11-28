@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// 複数のScaffold(path名付)を画面遷移メニューで遷移する
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -8,9 +10,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => RootPage(),
-        '/welcome': (BuildContext context) => WelcomePage(),
-        '/home': (BuildContext context) => HomePage(),
-        '/settings': (BuildContext context) => SettingsPage(),
+        '/welcome': (BuildContext context) => const BasePage('Welcome Page'),
+        '/home': (BuildContext context) => const BasePage('Home Page'),
+        '/settings': (BuildContext context) => const BasePage('Setting Page'),
       },
     );
   }
@@ -32,9 +34,9 @@ class RootPage extends StatelessWidget {
     Widget getListView() {
       return ListView(
         children: [
-          getListItem('/welcome','/welcome'),
-          getListItem('/home','/home'),
-          getListItem('/settings','/settings'),
+          getListItem('/welcome', '/welcome'),
+          getListItem('/home', '/home'),
+          getListItem('/settings', '/settings'),
         ],
       );
     }
@@ -51,38 +53,18 @@ class RootPage extends StatelessWidget {
   }
 }
 
-class WelcomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('WelcomePage'),
-      ),
-      body: const Text('WelcomePage'),
-    );
-  }
-}
+class BasePage extends StatelessWidget {
+  const BasePage(this._title);
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomePage'),
-      ),
-      body: const Text('HomePage'),
-    );
-  }
-}
+  final String _title;
 
-class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SettingsPage'),
+        title: Text(_title),
       ),
-      body: const Text('SettingsPage'),
+      body: Text(_title),
     );
   }
 }
