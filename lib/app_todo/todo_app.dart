@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           } else if (propertyAV is AsyncLoading || tagListAV is AsyncLoading) {
             const Scaffold(body: Text('loading...'));
           }
-          return createDefaultScaffold(pageProvider);
+          return pageProvider.createDefaultScaffold();
         }
       ),
     );

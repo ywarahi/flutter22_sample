@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
 
 class TabsControl extends ChangeNotifier {
-  TabsControl(this.bottomBarItems, this.topTabBarList, this.tabBarViewList);
+  TabsControl(this.bottomBarItems, this.topTabBarList, this.tabBarViewChildrenList);
 
   int currentBottomTabIndex = 0;
-  List<TabBar> topTabBarList;
-  List<TabBarView> tabBarViewList;
+  List<TabBar?> topTabBarList;
+  //List<TabBarView> tabBarViewList;
+  List<List<Widget>> tabBarViewChildrenList;
   List<BottomNavigationBarItem> bottomBarItems;
 
-  TabBar getCurrentTopTabBar() {
-    return topTabBarList[currentBottomTabIndex];
+  TabBar? getCurrentTopTabBar() {
+    var tabBar = topTabBarList[currentBottomTabIndex];
+    return tabBar; // nullの場合、タブを作成しない
   }
 
-  TabBarView getCurrentTabBarView() {
-    return tabBarViewList[currentBottomTabIndex];
+  Widget getCurrentTabBarView() {
+    if (topTabBarList[currentBottomTabIndex] == null) {
+      return tabBarViewChildrenList[currentBottomTabIndex][0];
+    }
+    return TabBarView(children: tabBarViewChildrenList[currentBottomTabIndex]);
   }
 
   BottomNavigationBar getBottomNavigationBar() {
     return BottomNavigationBar(
       items: bottomBarItems,
       currentIndex: currentBottomTabIndex,
-      onTap: onTap,
+      onTap: onTapBottomBar,
     );
   }
 
-  void onTap(int index) {
+  void onTapBottomBar(int index) {
     currentBottomTabIndex = index;
     notifyListeners();
   }
-}
 
-Widget createDefaultScaffold(TabsControl tabsControl) {
-  return DefaultTabController(
-      initialIndex: 0,
-      length: tabsControl.bottomBarItems.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('TabBar Widget'),
-          bottom: tabsControl.getCurrentTopTabBar(),
-        ),
-        body: tabsControl.getCurrentTabBarView(),
-        bottomNavigationBar: tabsControl.getBottomNavigationBar(),
-      ));
+  void onTapTopBar(int index) {
+    //Todo
+  }
+
+  Widget createDefaultScaffold() {
+    return DefaultTabController(
+        initialIndex: 0,
+        length: bottomBarItems.length,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('TabBar Widget'),
+            bottom: getCurrentTopTabBar(),
+          ),
+          body: getCurrentTabBarView(),
+          bottomNavigationBar: getBottomNavigationBar(),
+        ));
+  }
 }
