@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 
 class TabsControl extends ChangeNotifier {
-  TabsControl(this.bottomBarItems, this.tabBarList, this.tabBarViewList);
+  TabsControl(this.bottomBarItems, this.topTabBarList, this.tabBarViewList);
 
   int currentBottomTabIndex = 0;
+  List<TabBar> topTabBarList;
+  List<TabBarView> tabBarViewList;
   List<BottomNavigationBarItem> bottomBarItems;
-  List<TabBar> tabBarList; //TabBar(tabs: tabItems,)
-  List<TabBarView> tabBarViewList; //TabBarView(children: tabPages,)
 
-  TabBar getCurrentTabBar() {
-    return tabBarList[currentBottomTabIndex];
+  TabBar getCurrentTopTabBar() {
+    return topTabBarList[currentBottomTabIndex];
   }
 
   TabBarView getCurrentTabBarView() {
     return tabBarViewList[currentBottomTabIndex];
+  }
+
+  BottomNavigationBar getBottomNavigationBar() {
+    return BottomNavigationBar(
+      items: bottomBarItems,
+      currentIndex: currentBottomTabIndex,
+      onTap: onTap,
+    );
   }
 
   void onTap(int index) {
@@ -29,13 +37,9 @@ Widget createDefaultScaffold(TabsControl tabsControl) {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('TabBar Widget'),
-          bottom: tabsControl.getCurrentTabBar(),
+          bottom: tabsControl.getCurrentTopTabBar(),
         ),
         body: tabsControl.getCurrentTabBarView(),
-        bottomNavigationBar: BottomNavigationBar(
-          items: tabsControl.bottomBarItems,
-          currentIndex: tabsControl.currentBottomTabIndex,
-          onTap: tabsControl.onTap,
-        ),
+        bottomNavigationBar: tabsControl.getBottomNavigationBar(),
       ));
 }
