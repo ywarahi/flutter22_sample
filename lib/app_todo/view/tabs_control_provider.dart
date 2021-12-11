@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'tabs_control.dart';
 
 final tabsControlProvider = ChangeNotifierProvider(
-    (ref) => TabsControl(_bottomBarItems, _topTabBarList, _tabBarViewChildrenList));
+    (ref) => TabsControl(_bottomBarItems, _topTabList, _tabBarViewChildrenList));
 
 final _bottomBarItems = <BottomNavigationBarItem>[
   const BottomNavigationBarItem(
@@ -20,18 +20,33 @@ final _bottomBarItems = <BottomNavigationBarItem>[
   ),
 ];
 
-final _topTabBarList = <TabBar?>[
-  null,
-  const TabBar(tabs: <Widget>[
+// final _topTabBarList = <TabBar?>[
+//   null,
+//   const TabBar(tabs: <Widget>[
+//     Tab(icon: Icon(Icons.cloud_outlined), text: 'Search1'),
+//     Tab(icon: Icon(Icons.beach_access_sharp), text: 'Search2'),
+//     Tab(icon: Icon(Icons.brightness_5_sharp), text: 'Search3'),
+//   ]),
+//   const TabBar(tabs: <Widget>[
+//     Tab(icon: Icon(Icons.cloud_outlined), text: 'About1'),
+//     Tab(icon: Icon(Icons.beach_access_sharp), text: 'About2'),
+//     Tab(icon: Icon(Icons.brightness_5_sharp), text: 'About3'),
+//   ])
+// ];
+
+final _topTabList = <List<Tab>>[
+  const <Tab>[],
+  const <Tab>[
     Tab(icon: Icon(Icons.cloud_outlined), text: 'Search1'),
     Tab(icon: Icon(Icons.beach_access_sharp), text: 'Search2'),
     Tab(icon: Icon(Icons.brightness_5_sharp), text: 'Search3'),
-  ]),
-  const TabBar(tabs: <Widget>[
+  ],
+  const <Tab>[
     Tab(icon: Icon(Icons.cloud_outlined), text: 'About1'),
     Tab(icon: Icon(Icons.beach_access_sharp), text: 'About2'),
     Tab(icon: Icon(Icons.brightness_5_sharp), text: 'About3'),
-  ])
+    Tab(icon: Icon(Icons.access_time_filled_sharp), text: 'About4'),
+  ]
 ];
 
 final _tabBarViewChildrenList = <List<Widget>>[
@@ -49,6 +64,7 @@ final _tabBarViewChildrenList = <List<Widget>>[
     _CustomPage(panelColor: Colors.cyan, title: 'About1'),
     _CustomPage(panelColor: Colors.pink, title: 'About2'),
     _CustomPage(panelColor: Colors.amberAccent, title: 'About3'),
+    _CustomPage(panelColor: Colors.white, title: 'About4'),
   ]
 ];
 

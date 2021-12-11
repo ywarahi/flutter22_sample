@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class TabsControl extends ChangeNotifier {
-  TabsControl(this.bottomBarItems, this.topTabBarList, this.tabBarViewChildrenList);
+  TabsControl(this.bottomBarItems, this.topTabsList, this.tabBarViewChildrenList);
 
   int currentBottomTabIndex = 0;
-  List<TabBar?> topTabBarList;
+  //List<TabBar?> topTabBarList;
   //List<TabBarView> tabBarViewList;
+  List<List<Tab>> topTabsList;
   List<List<Widget>> tabBarViewChildrenList;
   List<BottomNavigationBarItem> bottomBarItems;
 
   TabBar? getCurrentTopTabBar() {
-    var tabBar = topTabBarList[currentBottomTabIndex];
-    return tabBar; // nullの場合、タブを作成しない
+    if (topTabsList[currentBottomTabIndex].isEmpty) {return null;}
+    return TabBar(
+        tabs: topTabsList[currentBottomTabIndex],
+        onTap: onTapTopBar);
+    // var tabBar = topTabBarList[currentBottomTabIndex];
+    // return tabBar; // nullの場合、タブを作成しない
   }
 
   Widget getCurrentTabBarView() {
-    if (topTabBarList[currentBottomTabIndex] == null) {
+    if (topTabsList[currentBottomTabIndex].isEmpty) {
       return tabBarViewChildrenList[currentBottomTabIndex][0];
     }
     return TabBarView(children: tabBarViewChildrenList[currentBottomTabIndex]);
@@ -41,7 +46,7 @@ class TabsControl extends ChangeNotifier {
   Widget createDefaultScaffold() {
     return DefaultTabController(
         initialIndex: 0,
-        length: bottomBarItems.length,
+        length: tabBarViewChildrenList[currentBottomTabIndex].length, //bottomBarItems.length,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('TabBar Widget'),
