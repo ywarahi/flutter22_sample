@@ -5,27 +5,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Playground',
-      home: MyPage(),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Test')),
+        body: MyPage(),
+      ),
     );
   }
 }
 
+// return MaterialApp内にNavigatorは記載してはダメ
 class MyPage extends StatelessWidget {
-  void _showOverlay(BuildContext context) {
-    Navigator.of(context).push(MyOverlay());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Test')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: RaisedButton(
-            onPressed: () => _showOverlay(context),
-            child: Text('Show Overlay'),
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(MyOverlay());
+          },
+          child: const Text('Show Overlay'),
         ),
       ),
     );
@@ -53,10 +52,10 @@ class MyOverlay extends ModalRoute<void> {
 
   @override
   Widget buildPage(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     // This makes sure that text and other content follows the material style
     return Material(
       type: MaterialType.transparency,
@@ -72,13 +71,13 @@ class MyOverlay extends ModalRoute<void> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
+          const Text(
             'This is a Nice overlay',
-            style: TextStyle(color: Colors.white, fontSize: 30.0),
+            style: TextStyle(color: Colors.white, fontSize: 30),
           ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Dismiss'),
+            child: const Text('Dismiss'),
           )
         ],
       ),
@@ -86,8 +85,8 @@ class MyOverlay extends ModalRoute<void> {
   }
 
   @override
-  Widget buildTransitions(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
     // You can add your own animations for the overlay content
     return FadeTransition(
       opacity: animation,
@@ -98,6 +97,3 @@ class MyOverlay extends ModalRoute<void> {
     );
   }
 }
-
-
-
