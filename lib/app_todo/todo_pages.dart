@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter22_sample/app_todo/view/top_and_bottom_tabbed_page.dart';
+import 'package:flutter22_sample/app_todo/page/todo_list_page.dart';
+import 'package:flutter22_sample/app_todo/page/top_and_bottom_tabbed_page.dart';
 
 class TodoPages extends TopAndBottomTabbedPage {
   TodoPages() : super(bottomTabs, topTabsList, pagesList);
@@ -26,7 +27,7 @@ final bottomTabs = <BottomNavigationBarItem>[
 
 final topTabsList = <List<Tab>>[
   const <Tab>[
-    Tab(icon: Icon(Icons.cloud_outlined), text: 'Home1'),
+    Tab(icon: Icon(Icons.cloud_outlined), text: 'Home'),
     // Tab(icon: Icon(Icons.beach_access_sharp), text: 'Home2'),
     // Tab(icon: Icon(Icons.brightness_5_sharp), text: 'Home3'),
   ],
@@ -49,10 +50,8 @@ final topTabsList = <List<Tab>>[
 ];
 
 final pagesList = <List<Widget>>[
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Home1'),
-    // CustomPage(panelColor: Colors.pink, title: 'Home2'),
-    // CustomPage(panelColor: Colors.amberAccent, title: 'Home3'),
+  <Widget>[
+    TodoListPage(),
   ],
   const <Widget>[
     CustomPage(panelColor: Colors.cyan, title: 'Category1'),
