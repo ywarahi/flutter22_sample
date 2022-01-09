@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter22_sample/app_todo/page/todo_list_page.dart';
-import 'package:flutter22_sample/app_todo/page/top_and_bottom_tabbed_page.dart';
+import 'package:flutter22_sample/app_todo/page/tabbed_page.dart';
 
-class TodoPages extends TopAndBottomTabbedPage {
+class TodoPages extends TabbedPage {
   TodoPages() : super(bottomTabs, topTabsList, pagesList);
 }
 
@@ -53,26 +53,28 @@ final pagesList = <List<Widget>>[
   <Widget>[
     TodoListPage(),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Category1'),
-    CustomPage(panelColor: Colors.pink, title: 'Category2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'Category3'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'Category1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'Category2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.amber, title: 'Category3', key: UniqueKey()),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Search1'),
-    CustomPage(panelColor: Colors.pink, title: 'Search2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'Search3'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'Search1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'Search2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.amber, title: 'Search3', key: UniqueKey()),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'About1'),
-    CustomPage(panelColor: Colors.pink, title: 'About2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'About3'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'About4'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'About1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'About2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.amber, title: 'About3', key: UniqueKey()),
+    CustomPage(panelColor: Colors.green, title: 'About4', key: UniqueKey()),
   ],
 ];
 
 class CustomPage extends StatelessWidget {
-  const CustomPage({required this.panelColor, required this.title});
+  const CustomPage(
+      {required this.panelColor, required this.title, required Key key})
+      : super(key: key);
 
   final Color panelColor;
   final String title;

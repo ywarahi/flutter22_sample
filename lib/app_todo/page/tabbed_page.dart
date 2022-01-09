@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TopAndBottomTabbedPage extends StatefulWidget {
-  const TopAndBottomTabbedPage(
+class TabbedPage extends StatefulWidget {
+  const TabbedPage(
       this._bottomTabs, this._topTabList, this._pagesList,
       {Key? key})
       : super(key: key);
@@ -11,17 +11,18 @@ class TopAndBottomTabbedPage extends StatefulWidget {
   final List<List<Widget>> _pagesList;
 
   @override
-  State<TopAndBottomTabbedPage> createState() => _TopAndBottomTabbedPageState();
+  State<TabbedPage> createState() => _TabbedPageState();
 }
 
-class _TopAndBottomTabbedPageState extends State<TopAndBottomTabbedPage>
+class _TabbedPageState extends State<TabbedPage>
     with TickerProviderStateMixin {
   TabController? _tabController;
-  int _bottomTabIndex = 0;
+  late int _bottomTabIndex;
   final List<int> _topTabIndexList = [];
 
   @override
   void initState() {
+    _bottomTabIndex = 0;
     super.initState();
     //_tabController = TabController(vsync: this, length: myTabs.length);
     for (var i = 0; i < widget._bottomTabs.length; i++) {
@@ -42,6 +43,7 @@ class _TopAndBottomTabbedPageState extends State<TopAndBottomTabbedPage>
       return TabBar(
         controller: _tabController,
         tabs: widget._topTabList[_bottomTabIndex],
+        key: UniqueKey(),
       );
     }
   }
@@ -54,6 +56,7 @@ class _TopAndBottomTabbedPageState extends State<TopAndBottomTabbedPage>
       //     _topTabIndexList[_bottomTabIndex]?? 0;
       return TabBarView(
         controller: _tabController,
+        key: UniqueKey(),
         children: widget._pagesList[_bottomTabIndex],
       );
     }
@@ -65,6 +68,7 @@ class _TopAndBottomTabbedPageState extends State<TopAndBottomTabbedPage>
       currentIndex: _bottomTabIndex,
       onTap: onTapBottomBar,
       type: BottomNavigationBarType.fixed,
+      key: UniqueKey(),
     );
   }
 
@@ -76,8 +80,6 @@ class _TopAndBottomTabbedPageState extends State<TopAndBottomTabbedPage>
 
   @override
   Widget build(BuildContext context) {
-    print('build is called.');
-
     _tabController?.dispose();
     _tabController = TabController(
         vsync: this,

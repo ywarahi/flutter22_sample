@@ -43,7 +43,6 @@ class TodoItemView extends ConsumerWidget {
       onTap: () {
         watch(todoItemUpdateProvider).state = item;
         Navigator.of(context).push(TodoUpdateDialog());
-        //Navigator.of(context).pushNamed('/regist');
       },
       child: ListTile(title: Text(item.title ?? 'NO-TITLE')),
     );
