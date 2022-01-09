@@ -44,26 +44,26 @@ final topTabsList = <List<Tab>>[
 ];
 
 final pagesList = <List<Widget>>[
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Home1'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'Home1', key: UniqueKey()),
     // CustomPage(panelColor: Colors.pink, title: 'Home2'),
     // CustomPage(panelColor: Colors.amberAccent, title: 'Home3'),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Category1'),
-    CustomPage(panelColor: Colors.pink, title: 'Category2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'Category3'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'Category1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'Category2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.green, title: 'Category3', key: UniqueKey()),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'Search1'),
-    CustomPage(panelColor: Colors.pink, title: 'Search2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'Search3'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'Search1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'Search2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.green, title: 'Search3', key: UniqueKey()),
   ],
-  const <Widget>[
-    CustomPage(panelColor: Colors.cyan, title: 'About1'),
-    CustomPage(panelColor: Colors.pink, title: 'About2'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'About3'),
-    CustomPage(panelColor: Colors.amberAccent, title: 'About4'),
+  <Widget>[
+    CustomPage(panelColor: Colors.cyan, title: 'About1', key: UniqueKey()),
+    CustomPage(panelColor: Colors.pink, title: 'About2', key: UniqueKey()),
+    CustomPage(panelColor: Colors.green, title: 'About3', key: UniqueKey()),
+    CustomPage(panelColor: Colors.amber, title: 'About4', key: UniqueKey()),
   ],
 ];
 
@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'TopTabBar x BottomTabBar',
-        home: MyTabbedPage(bottomTabs, topTabsList, pagesList));
+        home:
+            MyTabbedPage(bottomTabs, topTabsList, pagesList, key: UniqueKey()));
   }
 }
 
@@ -100,7 +101,7 @@ class _MyTabbedPageState extends State<MyTabbedPage>
     super.initState();
     //_tabController = TabController(vsync: this, length: myTabs.length);
     for (var i = 0; i < widget._bottomTabs.length; i++) {
-      _topTabIndexList.add(0);
+      _topTabIndexList.add(i);
     }
   }
 
@@ -115,22 +116,24 @@ class _MyTabbedPageState extends State<MyTabbedPage>
       return null;
     } else {
       return TabBar(
-        controller: _tabController,
-        tabs: widget._topTabList[_bottomTabIndex],
-      );
+          controller: _tabController,
+          tabs: widget._topTabList[_bottomTabIndex],
+          key: UniqueKey());
     }
   }
 
   Widget getCurrentPage() {
+    print('getCurrentPage: ${_bottomTabIndex} / ${_tabController!.index}');
+
     if (widget._pagesList[_bottomTabIndex].length == 1) {
       return widget._pagesList[_bottomTabIndex][0];
     } else {
       // int topTabIndex = (_tabController?.index)??
       //     _topTabIndexList[_bottomTabIndex]?? 0;
       return TabBarView(
-        controller: _tabController,
-        children: widget._pagesList[_bottomTabIndex],
-      );
+          controller: _tabController,
+          children: widget._pagesList[_bottomTabIndex],
+          key: UniqueKey());
     }
   }
 
@@ -146,12 +149,13 @@ class _MyTabbedPageState extends State<MyTabbedPage>
   void onTapBottomBar(int index) {
     _topTabIndexList[_bottomTabIndex] = _tabController!.index;
     _bottomTabIndex = index;
+
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build is called.');
+    print('build: ${_bottomTabIndex} / ${_topTabIndexList[_bottomTabIndex]}');
 
     _tabController?.dispose();
     _tabController = TabController(
@@ -169,7 +173,9 @@ class _MyTabbedPageState extends State<MyTabbedPage>
 }
 
 class CustomPage extends StatelessWidget {
-  const CustomPage({required this.panelColor, required this.title});
+  const CustomPage(
+      {required this.panelColor, required this.title, required Key key})
+      : super(key: key);
 
   final Color panelColor;
   final String title;
