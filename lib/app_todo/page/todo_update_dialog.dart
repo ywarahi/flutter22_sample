@@ -11,9 +11,11 @@ class TodoUpdateDialog extends AbstractModalDialog {
   Widget get childWidget {
     return Consumer(builder: (context, watch, child) {
       final todoList = context.read(todoListSNProvider.notifier);
+      final tagList = context.read(todoTagListSNProvider);
       final todoItem = watch(todoItemUpdateProvider);
-      //final tagListAV = watch(todoTagListSNProvider);
       final _formKey = GlobalKey<FormState>();
+
+      final z = todoItem.state.tags;
 
       return Form(
         key: _formKey,
@@ -59,16 +61,20 @@ class TodoUpdateDialog extends AbstractModalDialog {
                   todoItem.state = todoItem.state.copyWith(description: value);
                 },
               ), // description
-              const SizedBox(height: 8),
-              DropdownButton<String>(
-                items: const [
-                  DropdownMenuItem<String>(
-                    child: Text('zzz'),
-                  ),
-                  // DropdownMenuItem<String>(
-                  //   child: Text('yyy'),
-                  // )
-                ],
+              SizedBox(
+                width: double.infinity, // 横幅いっぱい
+                // height: 8
+                child: DropdownButton<String>(
+                  //value: todoItem.state.tags?.first,
+                  onChanged: (newValue) {
+                    print('$newValue is selected');
+                  },
+                  items: tagList
+                      .map((e) => DropdownMenuItem<String>(
+                            value: e.name!,
+                            child: Text(e.name!),
+                          ))
+                      .toList()),
               ),
               SizedBox(
                 width: double.infinity, // 横幅いっぱい

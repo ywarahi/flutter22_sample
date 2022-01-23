@@ -15,21 +15,67 @@ class TodoListPage extends ConsumerWidget {
     // get-provider
     final todoList = watch(todoListSNProvider);
 
-    // build-flutter_widget
-    return todoList.isNotEmpty
-        ? ListView.builder(
-            itemCount: todoList.length,
-            itemBuilder: (context, index) {
-              return ProviderScope(
-                overrides: [
-                  currentIndexItem.overrideWithValue(todoList[index])
-                ],
-                child: const TodoItemView(),
-              );
-            })
-        : const Center(
-            child: CircularProgressIndicator(),
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        child: GestureDetector(
+          onTap: () {
+            watch(todoItemUpdateProvider).state = TodoItem();
+            Navigator.of(context).push(TodoUpdateDialog());
+          },
+          child: const Card(
+            color: Colors.white,
+            child: ListTile(
+              leading: Icon(Icons.add),
+              title: Text('追加'),
+              subtitle: Text('itemを追加します'),
+              tileColor: Colors.greenAccent,
+            ),
+          ),
+        ),
+      ),
+      // SizedBox(
+      //     width: double.infinity,
+      //     child: ElevatedButton(
+      //       child: const Text('追加'),
+      //         style: ElevatedButton.styleFrom(
+      //           // primary: Colors.blue,
+      //           // onPrimary: Colors.black,
+      //           shape: RoundedRectangleBorder(
+      //             borderRadius: BorderRadius.circular(15),
+      //           ),),
+      //       onPressed: () {
+      //         watch(todoItemUpdateProvider).state = TodoItem();
+      //         Navigator.of(context).push(TodoUpdateDialog());
+      //       },
+      //     )),
+      Expanded(
+          child: ListView.builder(
+        itemCount: todoList.length,
+        itemBuilder: (context, index) {
+          return ProviderScope(
+            overrides: [currentIndexItem.overrideWithValue(todoList[index])],
+            child: const TodoItemView(),
           );
+        },
+      ))
+    ]);
+
+    // // build-flutter_widget
+    // return todoList.isNotEmpty
+    //     ? ListView.builder(
+    //         itemCount: todoList.length,
+    //         itemBuilder: (context, index) {
+    //           return ProviderScope(
+    //             overrides: [
+    //               currentIndexItem.overrideWithValue(todoList[index])
+    //             ],
+    //             child: const TodoItemView(),
+    //           );
+    //         })
+    //     : const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
   }
 }
 
@@ -40,11 +86,22 @@ class TodoItemView extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final item = watch(currentIndexItem);
     return GestureDetector(
-      onTap: () {
-        watch(todoItemUpdateProvider).state = item;
-        Navigator.of(context).push(TodoUpdateDialog());
-      },
-      child: ListTile(title: Text(item.title ?? 'NO-TITLE')),
-    );
+        onTap: () {
+          watch(todoItemUpdateProvider).state = item;
+          Navigator.of(context).push(TodoUpdateDialog());
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+          child: Card(
+              color: Colors.white,
+              child: ListTile(
+                title: Text(item.title ?? 'NO-TITLE'),
+                subtitle: Text(item.description ?? 'NO-DESCRIPTION'),
+                tileColor: Colors.limeAccent,
+                trailing: const Icon(Icons.more_vert),
+                //contentPadding: const EdgeInsets.all(20),
+              )),
+        )
+        );
   }
 }
