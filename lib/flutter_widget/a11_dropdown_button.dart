@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-final dataListProvider = StateProvider((ref) => ['1', '2', 'three', 'four']);
-final selectedProvider = StateProvider((ref) => '1');
+final dataList1Provider = StateProvider<List<String>>((ref) => ['1', '2']);
+final selected1Provider = StateProvider<String>((ref) => '1');
+final dataList2Provider =
+    StateProvider<List<String>>((ref) => ['1', '2', 'three', 'four']);
+final selected2Provider = StateProvider<String>((ref) => '1');
 
 final currentData =
     ScopedProvider<String>((watch) => throw UnimplementedError());
@@ -12,8 +15,11 @@ final currentData =
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final dataList = watch(dataListProvider).state;
-    final selected = watch(selectedProvider);
+    final dataList1 = watch(dataList1Provider).state;
+    final selected1 = watch(selected1Provider);
+    final dataList2 = watch(dataList2Provider).state;
+    final selected2 = watch(selected2Provider);
+
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -26,30 +32,32 @@ class MyApp extends ConsumerWidget {
             style: TextStyle(fontSize: 24),
           ),
           DropdownButton<String>(
-              items: const [
+              value: selected1.state, // DropdownList中に値がないとダメ
+              items: [
                 DropdownMenuItem<String>(
-                  value: '1',
-                  child: Text('1'),
+                  value: dataList1[0],
+                  child: Text(dataList1[0]),
                 ),
                 DropdownMenuItem<String>(
-                  value: '2',
-                  child: Text('2'),
+                  value: dataList1[1],
+                  child: Text(dataList1[1]),
                 )
               ],
               onChanged: (newValue) {
-                print('$newValue is selected');
+                selected1.state = newValue!; // watch or setStateしないと選択表示されない
+                print('Dropdwon1: $newValue is selected');
               }),
           DropdownButton<String>(
-            value: selected.state,
-            items: dataList
+            value: selected2.state,
+            items: dataList2
                 .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
                       value: e,
                       child: Text(e),
                     ))
                 .toList(),
             onChanged: (newValue) {
-              selected.state = newValue ?? 'unselected';
-              print('$newValue is selected');
+              selected2.state = newValue ?? 'unselected';
+              print('Dropdwon2: $newValue is selected');
             },
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 30,
