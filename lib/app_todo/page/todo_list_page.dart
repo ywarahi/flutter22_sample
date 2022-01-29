@@ -14,13 +14,14 @@ class TodoListPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     // get-provider
     final todoList = watch(todoListSNProvider);
+    final todoItem = context.read(todoItemUpdateProvider);
 
     return Column(children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: GestureDetector(
           onTap: () {
-            watch(todoItemUpdateProvider).state = TodoItem();
+            todoItem.state = const TodoItem(tags: ['DEFAULT']);
             Navigator.of(context).push(TodoUpdateDialog());
           },
           child: const Card(
@@ -60,22 +61,6 @@ class TodoListPage extends ConsumerWidget {
         },
       ))
     ]);
-
-    // // build-flutter_widget
-    // return todoList.isNotEmpty
-    //     ? ListView.builder(
-    //         itemCount: todoList.length,
-    //         itemBuilder: (context, index) {
-    //           return ProviderScope(
-    //             overrides: [
-    //               currentIndexItem.overrideWithValue(todoList[index])
-    //             ],
-    //             child: const TodoItemView(),
-    //           );
-    //         })
-    //     : const Center(
-    //         child: CircularProgressIndicator(),
-    //       );
   }
 }
 
@@ -85,9 +70,11 @@ class TodoItemView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final item = watch(currentIndexItem);
+    final todoItem = watch(todoItemUpdateProvider);
+
     return GestureDetector(
         onTap: () {
-          watch(todoItemUpdateProvider).state = item;
+          todoItem.state = item;
           Navigator.of(context).push(TodoUpdateDialog());
         },
         child: Padding(
@@ -101,7 +88,6 @@ class TodoItemView extends ConsumerWidget {
                 trailing: const Icon(Icons.more_vert),
                 //contentPadding: const EdgeInsets.all(20),
               )),
-        )
-        );
+        ));
   }
 }

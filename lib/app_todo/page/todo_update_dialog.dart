@@ -15,8 +15,6 @@ class TodoUpdateDialog extends AbstractModalDialog {
       final todoItem = watch(todoItemUpdateProvider);
       final _formKey = GlobalKey<FormState>();
 
-      final z = todoItem.state.tags;
-
       return Form(
         key: _formKey,
         child: Container(
@@ -44,7 +42,8 @@ class TodoUpdateDialog extends AbstractModalDialog {
                   labelText: '件名 *',
                   hintText: '件名を入力してください',
                 ),
-                onSaved: (value) {
+                onFieldSubmitted: (value) {
+                  print(value);
                   todoItem.state = todoItem.state.copyWith(title: value);
                 },
               ), // title
@@ -57,7 +56,8 @@ class TodoUpdateDialog extends AbstractModalDialog {
                   labelText: '内容 *',
                   hintText: '内容を入力してください',
                 ),
-                onSaved: (value) {
+                onFieldSubmitted: (value) {
+                  print(value);
                   todoItem.state = todoItem.state.copyWith(description: value);
                 },
               ), // description
@@ -65,16 +65,18 @@ class TodoUpdateDialog extends AbstractModalDialog {
                 width: double.infinity, // 横幅いっぱい
                 // height: 8
                 child: DropdownButton<String>(
-                  //value: todoItem.state.tags?.first,
-                  onChanged: (newValue) {
-                    print('$newValue is selected');
-                  },
-                  items: tagList
-                      .map((e) => DropdownMenuItem<String>(
-                            value: e.name!,
-                            child: Text(e.name!),
-                          ))
-                      .toList()),
+                    value: todoItem.state.tags?.first,
+                    onChanged: (newValue) {
+                      todoItem.state =
+                          todoItem.state.copyWith(tags: [newValue!]);
+                      print('$newValue is selected');
+                    },
+                    items: tagList
+                        .map((e) => DropdownMenuItem<String>(
+                              value: e.name!,
+                              child: Text(e.name!),
+                            ))
+                        .toList()),
               ),
               SizedBox(
                 width: double.infinity, // 横幅いっぱい
