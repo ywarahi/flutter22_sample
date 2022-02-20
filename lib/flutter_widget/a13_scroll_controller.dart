@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 class _ListViewState extends State {
   final ScrollController _controller = ScrollController();
   final _items = <String>[];
-  var _mPage = 0;
+  var _loading = false;
 
   @override
   void initState() {
@@ -18,13 +18,13 @@ class _ListViewState extends State {
     getData();
     //Add listening to the controller
     _controller.addListener(() {
-      //Determine if it slides to the bottom of the page
-      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        //If it is not the last page of data, generate new data to add to the list
-        if (_mPage < 4) {
-          _retrieveData();
-        }
-      }
+      // //Determine if it slides to the bottom of the page
+      // if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+      //   //If it is not the last page of data, generate new data to add to the list
+      //   if (_mPage < 4) {
+      //     //_retrieveData();
+      //   }
+      // }
     });
   }
 
@@ -36,15 +36,27 @@ class _ListViewState extends State {
         appBar: AppBar(
           title: const Text('ListView Demo'),
         ),
-        body: ListView.separated(
+        body: RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: ListView.separated(
               controller: _controller,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 //Determine whether the last item has been built
                 if (index == _items.length) {
-                  //Judge if it's the last page
-                  if (_mPage < 4) {
-                    //Not the last page, return to a loading window
+                  if (!_loading) {
+                    return Container(
+                        padding: const EdgeInsets.all(16),
+                        alignment: Alignment.center,
+                        child: TextButton(
+                          onPressed: () {
+                            _loading = true;
+                            setState(() {});
+                            _retrieveData();
+                          },
+                          child: const Text('click here'),
+                        ));
+                  } else {
                     return Container(
                       padding: const EdgeInsets.all(16),
                       alignment: Alignment.center,
@@ -54,16 +66,6 @@ class _ListViewState extends State {
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                         ),
-                      ),
-                    );
-                  } else {
-                    //It's the last page. It shows that I have a bottom line.
-                    return Container(
-                      padding: const EdgeInsets.all(16),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'I have a bottom line!!! ',
-                        style: TextStyle(color: Colors.cyan),
                       ),
                     );
                   }
@@ -80,6 +82,7 @@ class _ListViewState extends State {
               //_Items. Length + 1 is to make room for the loading of the last line
               itemCount: _items.length + 1),
         ),
+      ),
     );
   }
 
@@ -93,13 +96,27 @@ class _ListViewState extends State {
 
   void _retrieveData() {
     //Pull up to load new data
-    _mPage++;
+    //_mPage++;
     Future<void>.delayed(const Duration(seconds: 2)).then((e) {
       for (var i = 0; i < 20; i++) {
         _items.insert(
             _items.length, 'this is the newly loaded ${_items.length} data');
       }
+      _loading = false;
       setState(() {});
+    });
+  }
+
+  Future _onRefresh() async {
+    await Future<void>.delayed(const Duration(seconds: 2)).then((e) {
+      setState(() {
+        //_mPage = 0;
+        _items.clear();
+        for (var i = 0; i < 20; i++) {
+          _items.insert(
+              _items.length, 'drop-down refreshed data in ${_items.length}');
+        }
+      });
     });
   }
 

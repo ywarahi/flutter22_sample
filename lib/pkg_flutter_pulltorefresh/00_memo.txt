@@ -1,0 +1,5 @@
+https://pub.dev/packages/pull_to_refresh
+
+dependencies:
+  pull_to_refresh: ^2.0.0
+
