@@ -31,11 +31,11 @@ import 'flutter_widget/a13_scroll_controller.dart';
 //import 'flutter_widget/a92_dismissible.dart';
 //import 'flutter_widget/a20_dialog.dart';
 //import 'flutter_widget/a21_modal_dialog.dart';
-//import 'webview/a01_webview_simple.dart';
-//import 'sqflite/a01_riverpod_sqflite.dart';
-//import 'infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
-//import 'infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
-//import 'infinite_scroll_tab_view/a03_istv_x_bnb.dart';
+//import 'pkg_webview/a01_webview_simple.dart';
+//import 'pkg_sqflite/a01_riverpod_sqflite.dart';
+//import 'pkg_infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
+//import 'pkg_infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
+//import 'pkg_infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 //import 'dart/a80_root_bundle.dart';
 //import 'dart/a81_json_decode.dart';
 
@@ -50,9 +50,9 @@ void main() {
 //import 'riverpod/a11_riverpod_provider_scope_overrides.dart';
 //import 'firebase/a01_firebase_simple.dart';
 //import 'firebase/a02_firebase_riverpod.dart';
-//import 'shared_preference/a01_riverpod_shared_preference.dart';
+//import 'pkg_shared_preference/a01_riverpod_shared_preference.dart';
 //import 'dart_nullable/a00_nullable.dart';
-//import 'sqflite/a00_sqflite.dart';
+//import 'pkg_sqflite/a00_sqflite.dart';
 //import 'dart_cast/a02_cast_list.dart';
 //import 'dart/a10_control_flow.dart';
 
