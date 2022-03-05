@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
-    );
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Animated Widget'),
+      ),
+      body: const MyAnimatedPage(),
+    ));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyAnimatedPage extends StatefulWidget {
+  const MyAnimatedPage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyAnimatedPageState createState() => _MyAnimatedPageState();
 }
 
 // ①StateでAnimationを生成 & TickerProviderStateMixinを適用
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  bool flag = false;
-
+class _MyAnimatedPageState extends State<MyAnimatedPage>
+    with TickerProviderStateMixin {
   // ②AnimationControllerを定義
   late AnimationController _animationController;
 
@@ -43,38 +46,68 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Animated Widget'),
-      ),
-      body: Center(
-        // ⑤AnimatedWidgetを作成
-        child: AlignTransition(
-          alignment: _animationController.drive(
-            AlignmentTween(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-          child: Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
-          ),
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Expanded(
+        child: Container(
+          color: Colors.black12,
+          child: buildAnimatedWidget(),
         ),
       ),
-      floatingActionButton:
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        FloatingActionButton(
-            onPressed: () {_animationController.forward();},
-            child: const Icon(Icons.arrow_forward)),
-        FloatingActionButton(
-            onPressed: () {_animationController.stop();},
-            child: const Icon(Icons.stop)),
-        FloatingActionButton(
-            onPressed: () {_animationController.reverse();},
-            child: const Icon(Icons.arrow_back)),
-      ]),
+      buildControlButtons(),
+    ]);
+  }
+
+  Widget buildAnimatedWidget() {
+    return AlignTransition(
+      alignment: _animationController.drive(
+        AlignmentTween(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Container(
+        width: 100,
+        height: 100,
+        color: Colors.blue,
+      ),
+    );
+  }
+
+  Widget buildControlButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.reverse();
+            });
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.blue,
+          iconSize: 32,
+        ),
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.stop();
+            });
+          },
+          icon: const Icon(Icons.stop),
+          color: Colors.pink,
+          iconSize: 32,
+        ),
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.forward();
+            });
+          },
+          icon: const Icon(Icons.arrow_forward),
+          color: Colors.blue,
+          iconSize: 32,
+        ),
+      ],
     );
   }
 }
