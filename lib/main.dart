@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //import 'sample.dart';
+//import 'dart/a80_root_bundle.dart';
+//import 'dart/a81_json_decode.dart';
 //import 'riverpod/a00_stateful_widget.dart';
 //import 'riverpod/a01_riverpod_provider.dart';
 //import 'riverpod/a02_riverpod_provider.dart';
@@ -14,14 +16,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
 //import 'riverpod/a12_riverpod_async_value.dart';
-//import 'packageinfo/a01_packageinfo_simple.dart';
-//import 'packageinfo/a02_packageinfo_riverpod.dart';
+import 'flutter_animation/a01_animated_opacity.dart';
+//import 'flutter_animation/a02_animated_align.dart';
+//import 'flutter_animation/a11_align_transition.dart';
+//import 'flutter_animation/a21_animated_builder.dart';
+//import 'flutter_animation/a11_align_transition.dart';
 //import 'flutter_widget/a00_container.dart';
 //import 'flutter_widget/a01_material_app.dart';
 //import 'flutter_widget/a02_bottom_navigation_bar.dart';
 //import 'flutter_widget/a03_tabbar.dart';
 //import 'flutter_widget/a04_top_and_bottom_tabbar.dart';
-import 'flutter_widget/a05_stack.dart';
+//import 'flutter_widget/a05_stack.dart';
 //import 'flutter_widget/a10_listview.dart';
 //import 'flutter_widget/a11_refresh_indicator.dart';
 //import 'flutter_widget/a12_refresh_indicator_multi_pull.dart';
@@ -31,18 +36,18 @@ import 'flutter_widget/a05_stack.dart';
 //import 'flutter_widget/a92_dismissible.dart';
 //import 'flutter_widget/a20_dialog.dart';
 //import 'flutter_widget/a21_modal_dialog.dart';
+//import 'packageinfo/a01_packageinfo_simple.dart';
+//import 'packageinfo/a02_packageinfo_riverpod.dart';
 //import 'pkg_webview/a01_webview_simple.dart';
 //import 'pkg_sqflite/a01_riverpod_sqflite.dart';
 //import 'pkg_infinite_scroll_tab_view/a01_infinite_scroll_tab_view.dart';
 //import 'pkg_infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'pkg_infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 //import 'pkg_flutter_pulltorefresh/a01_pulltorefresh.dart';
-//import 'dart/a80_root_bundle.dart';
-//import 'dart/a81_json_decode.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: MyApp(),
     ),
   );
