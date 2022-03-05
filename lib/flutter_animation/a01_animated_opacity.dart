@@ -19,12 +19,6 @@ class MyAnmatedPage extends StatefulWidget {
 class _MyAnmatedPageState extends State<MyAnmatedPage> with TickerProviderStateMixin {
   bool flag = false;
 
-  Future<void> _click() async {
-    setState(() {
-      flag = !flag;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,13 +43,40 @@ class _MyAnmatedPageState extends State<MyAnmatedPage> with TickerProviderStateM
                   '消える文字(1 ⇨ 0)',
                   style: Theme.of(context).textTheme.headline4,
                 )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      flag = !flag;
+                    });
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                  color: Colors.blue,
+                  iconSize: 32,
+                ),
+                const IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.stop),
+                  color: Colors.pink,
+                  iconSize: 32,
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      flag = !flag;
+                    });
+                  },
+                  icon: const Icon(Icons.arrow_forward),
+                  color: Colors.blue,
+                  iconSize: 32,
+                ),
+              ],
+            ),
           ],
         ),
       ),
-      floatingActionButton:
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        FloatingActionButton(onPressed: _click, child: const Icon(Icons.add)),
-      ]),
     );
   }
 }
