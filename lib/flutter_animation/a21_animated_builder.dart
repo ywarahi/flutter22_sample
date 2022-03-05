@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyAnimatedPage(),
-    );
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Animated Widget'),
+      ),
+      body: const MyAnimatedPage(),
+    ));
   }
 }
 
@@ -17,9 +21,11 @@ class MyAnimatedPage extends StatefulWidget {
 }
 
 // ①StateでAnimationを生成 & TickerProviderStateMixinを適用
-class _MyAnimatedPageState extends State<MyAnimatedPage> with TickerProviderStateMixin {
+class _MyAnimatedPageState extends State<MyAnimatedPage>
+    with TickerProviderStateMixin {
   // ②AnimationControllerを定義
   late AnimationController _animationController;
+
   late Animation _animation;
 
   @override
@@ -32,8 +38,8 @@ class _MyAnimatedPageState extends State<MyAnimatedPage> with TickerProviderStat
       duration: const Duration(milliseconds: 2000),
     );
 
-    final curvedAnimation =
-        CurveTween(curve: Curves.bounceIn).animate(_animationController);
+    // final curvedAnimation =
+    //     CurveTween(curve: Curves.bounceIn).animate(_animationController);
     _animation = ColorTween(
       begin: Colors.blue,
       end: Colors.red,
@@ -47,42 +53,69 @@ class _MyAnimatedPageState extends State<MyAnimatedPage> with TickerProviderStat
     super.dispose();
   }
 
+  Widget _buildControlButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.reverse();
+            });
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.blue,
+          iconSize: 32,
+        ),
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.stop();
+            });
+          },
+          icon: const Icon(Icons.stop),
+          color: Colors.pink,
+          iconSize: 32,
+        ),
+        IconButton(
+          onPressed: () {
+            setState(() {
+              _animationController.forward();
+            });
+          },
+          icon: const Icon(Icons.arrow_forward),
+          color: Colors.blue,
+          iconSize: 32,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Animated Widget'),
-      ),
-      body: Center(
-        // ⑤AnimatedWidgetを作成
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, _) {
-            return SizedBox(
-                width: 100,
-                height: 100,
-                child: Container(color: _animation.value as Color));
-          },
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: _buildControlButtons(),
         ),
-      ),
-      floatingActionButton:
-          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        FloatingActionButton(
-            onPressed: () {
-              _animationController.forward();
-            },
-            child: const Icon(Icons.arrow_forward)),
-        FloatingActionButton(
-            onPressed: () {
-              _animationController.stop();
-            },
-            child: const Icon(Icons.stop)),
-        FloatingActionButton(
-            onPressed: () {
-              _animationController.reverse();
-            },
-            child: const Icon(Icons.arrow_back)),
-      ]),
+        Container(
+          alignment: Alignment.center,
+          child: buildAnimatedWidget(),
+        ),
+      ],
+    );
+  }
+
+  Widget buildAnimatedWidget() {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, _) {
+        return SizedBox(
+            width: 100,
+            height: 100,
+            child: Container(color: _animation.value as Color));
+      },
     );
   }
 }
