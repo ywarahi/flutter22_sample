@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_tab_view/infinite_scroll_tab_view.dart';
 
 class TabbedView2 extends StatefulWidget {
   const TabbedView2(
@@ -6,7 +7,7 @@ class TabbedView2 extends StatefulWidget {
       {Key? key})
       : super(key: key);
 
-  final List<List<Tab>> _topTabList;
+  final List<List<Text>> _topTabList;
   final List<BottomNavigationBarItem> _bottomTabs;
   final List<List<Widget>> _pagesList;
 
@@ -36,38 +37,36 @@ class _TabbedView2State extends State<TabbedView2>
     super.dispose();
   }
 
-  TabBar? getTopTabBar() {
-    if (widget._pagesList[_bottomTabIndex].length == 1) {
-      return null;
-    } else {
-      return TabBar(
-        controller: _tabController,
-        tabs: widget._topTabList[_bottomTabIndex],
-        key: UniqueKey(),
-      );
-    }
-  }
+  // TabBar? getTopTabBar() {
+  //   if (widget._pagesList[_bottomTabIndex].length == 1) {
+  //     return null;
+  //   } else {
+  //     return TabBar(
+  //       controller: _tabController,
+  //       tabs: widget._topTabList[_bottomTabIndex],
+  //       key: UniqueKey(),
+  //     );
+  //   }
+  // }
 
-  Widget getCurrentPage() {
-    if (widget._pagesList[_bottomTabIndex].length == 1) {
-      return widget._pagesList[_bottomTabIndex][0];
-    } else {
-      // int topTabIndex = (_tabController?.index)??
-      //     _topTabIndexList[_bottomTabIndex]?? 0;
-      return TabBarView(
-        controller: _tabController,
-        key: UniqueKey(),
-        children: widget._pagesList[_bottomTabIndex],
-      );
-    }
-  }
+  // Widget getCurrentPage() {
+  //   if (widget._pagesList[_bottomTabIndex].length == 1) {
+  //     return widget._pagesList[_bottomTabIndex][0];
+  //   } else {
+  //     return TabBarView(
+  //       controller: _tabController,
+  //       key: UniqueKey(),
+  //       children: widget._pagesList[_bottomTabIndex],
+  //     );
+  //   }
+  // }
 
   BottomNavigationBar getBottomTabBar() {
     return BottomNavigationBar(
       items: widget._bottomTabs,
       currentIndex: _bottomTabIndex,
       onTap: (index) {
-        _topTabIndexList[_bottomTabIndex] = _tabController!.index;
+        //_topTabIndexList[_bottomTabIndex] = _tabController!.index;
         _bottomTabIndex = index;
         setState(() {});
       },
@@ -78,20 +77,31 @@ class _TabbedView2State extends State<TabbedView2>
 
   @override
   Widget build(BuildContext context) {
-    _tabController?.dispose();
-    _tabController = TabController(
-        vsync: this,
-        length: widget._topTabList[_bottomTabIndex].length,
-        initialIndex: _topTabIndexList[_bottomTabIndex]);
-
     return Scaffold(
         appBar: AppBar(
-          bottom: getTopTabBar(),
+          title: const Text('Title')
         ),
-        body: getCurrentPage(),
+        body: InfiniteScrollTabView(
+          contentLength: widget._topTabList[_bottomTabIndex].length,
+          onTabTap: (index) {
+            debugPrint('tapped $index');
+          },
+          tabBuilder: (index, isSelected) => widget._topTabList[_bottomTabIndex][index],
+          separator: const BorderSide(color: Colors.black12, width: 2),
+          onPageChanged: (index) {
+            _topTabIndexList[_bottomTabIndex] = index;
+            debugPrint('page changed to $index.');
+          },
+          indicatorColor: Colors.pink,
+          pageBuilder: (context, index, _) {
+            return widget._pagesList[_bottomTabIndex][index];
+          },
+        ),
         bottomNavigationBar: getBottomTabBar());
   }
 }
+
+
 
 //OLD//
 // class TabbedWidget extends StatefulWidget {

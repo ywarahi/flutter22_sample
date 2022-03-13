@@ -20,25 +20,25 @@ final bottomTabs = <BottomNavigationBarItem>[
   ),
 ];
 
-final topTabsList = <List<Tab>>[
-  const <Tab>[
-    Tab(icon: Icon(Icons.cloud_outlined), text: 'Home'),
+final topTabsList = <List<Text>>[
+  const <Text>[
+    Text('Home'),
   ],
-  const <Tab>[
-    Tab(icon: Icon(Icons.cloud_outlined), text: 'Category1'),
-    Tab(icon: Icon(Icons.beach_access_sharp), text: 'Category2'),
-    Tab(icon: Icon(Icons.brightness_5_sharp), text: 'Category3'),
+  const <Text>[
+    Text('Category1'),
+    Text('Category2'),
+    Text('Category3'),
   ],
-  const <Tab>[
-    Tab(icon: Icon(Icons.cloud_outlined), text: 'Search1'),
-    Tab(icon: Icon(Icons.beach_access_sharp), text: 'Search2'),
-    Tab(icon: Icon(Icons.brightness_5_sharp), text: 'Search3'),
+  const <Text>[
+    Text('Search1'),
+    Text('Search2'),
+    Text('Search3'),
   ],
-  const <Tab>[
-    Tab(icon: Icon(Icons.cloud_outlined), text: 'About1'),
-    Tab(icon: Icon(Icons.beach_access_sharp), text: 'About2'),
-    Tab(icon: Icon(Icons.brightness_5_sharp), text: 'About3'),
-    Tab(icon: Icon(Icons.access_time_filled_sharp), text: 'About4'),
+  const <Text>[
+    Text('About1'),
+    Text('About2'),
+    Text('About3'),
+    Text('About4'),
   ]
 ];
 
