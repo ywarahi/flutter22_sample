@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter22_sample/pkg_tabbed_view/pkg_tabbed_widget.dart';
+import 'package:flutter22_sample/pkg_tabbed_view/pkg_tabbed_view.dart';
 
 final bottomTabs = <BottomNavigationBarItem>[
   const BottomNavigationBarItem(
