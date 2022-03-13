@@ -16,10 +16,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'riverpod/a09_riverpod_scoped_provider.dart';
 //import 'riverpod/a10_reverpod_refresh.dart';
 //import 'riverpod/a12_riverpod_async_value.dart';
-import 'flutter_animation/a01_animated_opacity.dart';
+//import 'flutter_animation/a01_animated_opacity.dart';
 //import 'flutter_animation/a02_animated_align.dart';
 //import 'flutter_animation/a11_align_transition.dart';
+//import 'flutter_animation/a12_slide_transition.dart';
+//import 'flutter_animation/a13_slideup_transition.dart';
 //import 'flutter_animation/a21_animated_builder.dart';
+//import 'flutter_animation/a91_listview_pull_up_down.dart';
+//import 'flutter_animation/a92_slideup_widget.dart';
 //import 'flutter_animation/a11_align_transition.dart';
 //import 'flutter_widget/a00_container.dart';
 //import 'flutter_widget/a01_material_app.dart';
@@ -44,6 +48,7 @@ import 'flutter_animation/a01_animated_opacity.dart';
 //import 'pkg_infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'pkg_infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 //import 'pkg_flutter_pulltorefresh/a01_pulltorefresh.dart';
+import 'pkg_tabbed_view/a00_tabbed_view.dart';
 
 void main() {
   runApp(
