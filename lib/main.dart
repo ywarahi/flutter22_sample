@@ -48,8 +48,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'pkg_infinite_scroll_tab_view/a02_istv_x_riverpod.dart';
 //import 'pkg_infinite_scroll_tab_view/a03_istv_x_bnb.dart';
 //import 'pkg_flutter_pulltorefresh/a01_pulltorefresh.dart';
-//import 'pkg_tabbed_view/a00_tabbed_view.dart';
-import 'pkg_tabbed_view2/a00_tabbed_view2.dart';
+//import 'pkg_tabbed_view/a01_tabbed_view.dart';
+import 'pkg_tabbed_view/a02_tabbed_view_x_istv.dart';
+//import 'pkg_tabbed_view2/a00_tabbed_view2.dart';
 
 void main() {
   runApp(
