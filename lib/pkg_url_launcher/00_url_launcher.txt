@@ -1,0 +1,4 @@
+https://pub.dev/packages/url_launcher
+
+dependencies:
+  url_launcher: ^6.0.20
