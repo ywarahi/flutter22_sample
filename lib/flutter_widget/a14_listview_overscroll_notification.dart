@@ -4,9 +4,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Listview x Overscroll',
+      title: 'NotificationListener',
       home: Scaffold(
-        appBar: AppBar(title: const Text('Test')),
+        appBar: AppBar(title: const Text('NotificationListener')),
         body: MyListViewPage(),
       ),
     );
@@ -21,31 +21,19 @@ class MyListViewPage extends StatefulWidget {
 }
 
 class _MyListViewPageState extends State {
-  final ScrollController _controller = ScrollController();
   final _items = <String>[];
-  var _loading = false;
+  var _lock = false;
 
   @override
   void initState() {
     super.initState();
-    getData();
-    //Add listening to the controller
-    _controller.addListener(() {
-      // //Determine if it slides to the bottom of the page
-      // if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-      //   //If it is not the last page of data, generate new data to add to the list
-      //   if (_mPage < 4) {
-      //     //_retrieveData();
-      //   }
-      // }
-    });
+    initData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>( //OverscrollNotification
+    return NotificationListener<ScrollNotification>(
         child: ListView.separated(
-            controller: _controller,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return ListTile(title: Text('${_items[index]}'));
@@ -59,47 +47,52 @@ class _MyListViewPageState extends State {
         onNotification: (notification) {
           final metrics = notification.metrics;
 
-          //print(notification.toString());
-          print('${metrics.extentBefore} /  ${metrics.extentAfter}');
+          //print('${metrics.extentBefore} /  ${metrics.extentAfter}');
+
+          if (metrics.extentBefore == 0.0 &&
+              metrics.extentAfter > 600.0 &&
+              !_lock) {
+            _lock = true;
+            _onRefresh();
+          }
+          if (metrics.extentBefore > 600.0 &&
+              metrics.extentAfter == 0.0 &&
+              !_lock) {
+            _lock = true;
+            _onLoad();
+          }
 
           return false;
         });
   }
 
-  void getData() {
-    //Initial data source
+  void initData() {
     for (var i = 0; i < 20; i++) {
       _items.insert(_items.length, 'original data ${_items.length}');
-      print(_items[i]);
     }
   }
 
   void _onLoad() {
     Future<void>.delayed(const Duration(seconds: 2)).then((e) {
+      print('_onLoad');
       for (var i = 0; i < 20; i++) {
         _items.insert(_items.length, 'loaded data ${_items.length}');
       }
-      _loading = false;
       setState(() {});
+      _lock = false;
     });
   }
 
   Future _onRefresh() async {
+    print('_onRefresh');
     await Future<void>.delayed(const Duration(seconds: 2)).then((e) {
       setState(() {
-        //_mPage = 0;
         _items.clear();
         for (var i = 0; i < 20; i++) {
           _items.insert(_items.length, 'refreshed data ${_items.length}');
         }
+        _lock = false;
       });
     });
-  }
-
-  @override
-  void dispose() {
-    //Remove monitoring to prevent memory leaks
-    _controller.dispose();
-    super.dispose();
   }
 }
