@@ -148,7 +148,7 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
               }),
         ),
         Visibility(
-          visible: !_isActiveUpperSide  && !_loadingStatus,
+          visible: !_isActiveUpperSide && !_loadingStatus,
           child: AnimatedBuilder(
               animation: _animation,
               builder: (context, _) {
