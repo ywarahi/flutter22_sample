@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -98,22 +100,18 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
               //print('${metrics.extentBefore} /  ${metrics.extentAfter}');
               //print(notification.toString());
 
-              if ( //metrics.extentBefore == 0.0 &&
-                  //metrics.extentAfter > 600.0 &&
-                  notification is ScrollEndNotification &&
-                      metrics.extentAfter == max &&
-                      _popupStatus == AnimationStatus.dismissed) {
+              if (notification is ScrollEndNotification &&
+                  metrics.extentAfter == max &&
+                  _popupStatus == AnimationStatus.dismissed) {
                 _isActiveUpperSide = true;
                 setState(() {
                   _animationController.forward();
                 });
                 _onRefresh();
               }
-              if ( //metrics.extentBefore > 600.0 &&
-                  //metrics.extentAfter == 0.0 &&
-                  notification is ScrollEndNotification &&
-                      metrics.extentBefore == max &&
-                      _popupStatus == AnimationStatus.dismissed) {
+              if (notification is ScrollEndNotification &&
+                  metrics.extentBefore == max &&
+                  _popupStatus == AnimationStatus.dismissed) {
                 _isActiveUpperSide = false;
                 setState(() {
                   _animationController.forward();
@@ -134,11 +132,16 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
                   height: 100 * (_animation.value as double),
                   child: Align(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
+                          log('_loadingStatus = true');
                           _loadingStatus = true;
                           _animationController.reset();
-                          _onRefresh();
+                        });
+                        await _onRefresh();
+                        setState(() {
+                          log('_loadingStatus = false');
+                          _loadingStatus = false;
                         });
                       },
                       child: const Text('最新記事を表示'),
@@ -159,11 +162,16 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
                     height: 100 * (_animation.value as double),
                     child: Align(
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
+                            log('_loadingStatus = true', time: DateTime.now());
                             _loadingStatus = true;
                             _animationController.reset();
-                            _onLoad();
+                          });
+                          await _onLoad();
+                          setState(() {
+                            log('_loadingStatus = false', time: DateTime.now());
+                            _loadingStatus = false;
                           });
                         },
                         child: const Text('次の20件を表示'),
@@ -193,28 +201,24 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
     }
   }
 
-  void _onLoad() {
-    Future<void>.delayed(const Duration(seconds: 2)).then((e) {
-      print('_onLoad');
-      setState(() {
-        for (var i = 0; i < 20; i++) {
-          _items.insert(_items.length, 'loaded data ${_items.length}');
-        }
-        _loadingStatus = false;
-      });
+  Future<void> _onLoad() async {
+    log('_onLoad:start', time: DateTime.now());
+    await Future<void>.delayed(const Duration(seconds: 3)).then((e) {
+      for (var i = 0; i < 20; i++) {
+        _items.insert(_items.length, 'loaded data ${_items.length}');
+      }
     });
+    log('_onLoad:end', time: DateTime.now());
   }
 
-  void _onRefresh() {
-    print('_onRefresh');
-    Future<void>.delayed(const Duration(seconds: 2)).then((e) {
-      setState(() {
-        _items.clear();
-        for (var i = 0; i < 20; i++) {
-          _items.insert(_items.length, 'refreshed data ${_items.length}');
-        }
-        _loadingStatus = false;
-      });
+  Future<void> _onRefresh() async {
+    log('_onRefresh:start', time: DateTime.now());
+    await Future<void>.delayed(const Duration(seconds: 3)).then((e) {
+      _items.clear();
+      for (var i = 0; i < 20; i++) {
+        _items.insert(_items.length, 'refreshed data ${_items.length}');
+      }
     });
+    log('_onRefresh:end', time: DateTime.now());
   }
 }
