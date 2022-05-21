@@ -1,15 +1,33 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
+typedef FutureCallback = Future<void> Function();
+
+class LoadAndRefreshViewController {
+  //reserved
+}
+
 class LoadAndRefreshView extends StatefulWidget {
+  const LoadAndRefreshView(
+      this.child, this.onInit, this.onRefresh, this.onLoading, this.controller,
+      {Key? key})
+      : super(key: key);
+
+  final Widget child;
+  final FutureCallback onInit;
+  final FutureCallback onRefresh;
+  final FutureCallback onLoading;
+  final LoadAndRefreshViewController controller;
+
   @override
   State createState() {
     return _LoadAndRefreshViewState();
   }
 }
 
-class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
-  final _items = <String>[];
-
+class _LoadAndRefreshViewState extends State<LoadAndRefreshView>
+    with TickerProviderStateMixin {
   bool _loadingStatus = false;
   AnimationStatus _popupStatus = AnimationStatus.dismissed;
   bool _isActiveUpperSide = false;
@@ -21,15 +39,15 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _onInit();
+    widget.onInit();
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
     );
 
     _animation = CurveTween(
-      curve: Curves.easeInCubic,
+      curve: Curves.elasticOut //easeInCubic,
     ).animate(_animationController);
 
     _animationController.addStatusListener((status) {
@@ -67,17 +85,7 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
     return Stack(
       children: [
         NotificationListener<ScrollNotification>(
-            child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ListTile(title: Text('${_items[index]}'));
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    color: Colors.blue,
-                  );
-                },
-                itemCount: _items.length),
+            child: widget.child,
             onNotification: (notification) {
               final metrics = notification.metrics;
               final max = notification.metrics.maxScrollExtent;
@@ -85,20 +93,15 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
               //print('${metrics.extentBefore} /  ${metrics.extentAfter}');
               //print(notification.toString());
 
-              if ( //metrics.extentBefore == 0.0 &&
-              //metrics.extentAfter > 600.0 &&
-              notification is ScrollEndNotification &&
+              if (notification is ScrollEndNotification &&
                   metrics.extentAfter == max &&
                   _popupStatus == AnimationStatus.dismissed) {
                 _isActiveUpperSide = true;
                 setState(() {
                   _animationController.forward();
                 });
-                _onRefresh();
               }
-              if ( //metrics.extentBefore > 600.0 &&
-              //metrics.extentAfter == 0.0 &&
-              notification is ScrollEndNotification &&
+              if (notification is ScrollEndNotification &&
                   metrics.extentBefore == max &&
                   _popupStatus == AnimationStatus.dismissed) {
                 _isActiveUpperSide = false;
@@ -121,11 +124,16 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
                   height: 100 * (_animation.value as double),
                   child: Align(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
+                          log('_loadingStatus = true');
                           _loadingStatus = true;
                           _animationController.reset();
-                          _onRefresh();
+                        });
+                        await widget.onRefresh();
+                        setState(() {
+                          log('_loadingStatus = false');
+                          _loadingStatus = false;
                         });
                       },
                       child: const Text('最新記事を表示'),
@@ -135,7 +143,7 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
               }),
         ),
         Visibility(
-          visible: !_isActiveUpperSide  && !_loadingStatus,
+          visible: !_isActiveUpperSide && !_loadingStatus,
           child: AnimatedBuilder(
               animation: _animation,
               builder: (context, _) {
@@ -146,11 +154,16 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
                     height: 100 * (_animation.value as double),
                     child: Align(
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
+                            log('_loadingStatus = true', time: DateTime.now());
                             _loadingStatus = true;
                             _animationController.reset();
-                            _onLoad();
+                          });
+                          await widget.onLoading();
+                          setState(() {
+                            log('_loadingStatus = false', time: DateTime.now());
+                            _loadingStatus = false;
                           });
                         },
                         child: const Text('次の20件を表示'),
@@ -172,36 +185,5 @@ class _LoadAndRefreshViewState extends State with TickerProviderStateMixin {
         ),
       ],
     );
-  }
-
-  void _onInit() {
-    for (var i = 0; i < 20; i++) {
-      _items.insert(_items.length, 'original data ${_items.length}');
-    }
-  }
-
-  void _onLoad() {
-    Future<void>.delayed(const Duration(seconds: 2)).then((e) {
-      print('_onLoad');
-      setState(() {
-        for (var i = 0; i < 20; i++) {
-          _items.insert(_items.length, 'loaded data ${_items.length}');
-        }
-        _loadingStatus = false;
-      });
-    });
-  }
-
-  void _onRefresh() {
-    print('_onRefresh');
-    Future<void>.delayed(const Duration(seconds: 2)).then((e) {
-      setState(() {
-        _items.clear();
-        for (var i = 0; i < 20; i++) {
-          _items.insert(_items.length, 'refreshed data ${_items.length}');
-        }
-        _loadingStatus = false;
-      });
-    });
   }
 }
