@@ -107,7 +107,6 @@ class _MyListViewPageState extends State with TickerProviderStateMixin {
                 setState(() {
                   _animationController.forward();
                 });
-                _onRefresh();
               }
               if (notification is ScrollEndNotification &&
                   metrics.extentBefore == max &&
